@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta name="description" content="আপনার website সম্পর্কে ছোট description">
+    <meta name="robots" content="index, follow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ফিজা প্রাইভেট হোম - ERP সিস্টেম</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --secondary: #34a853;
+            --danger: #d93025;
+            --dark: #202124;
+            --light: #f8f9fa;
+            --border: #dadce0;
+            --sidebar-width: 260px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* --- Utility Classes --- */
+        .hidden { display: none !important; }
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+        .btn-primary { background-color: var(--primary); color: white; }
+        .btn-primary:hover { background-color: #1557b0; }
+        .btn-danger { background-color: var(--danger); color: white; }
+        .btn-success { background-color: var(--secondary); color: white; }
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .form-group { margin-bottom: 15px; }
+        .form-label { display: block; margin-bottom: 5px; font-weight: 600; color: #444; }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .form-control:focus { outline: 2px solid var(--primary); border-color: transparent; }
+
+        /* --- Tables (Beautiful Borders) --- */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+        }
+        th {
+            background-color: #e8f0fe;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        tr:nth-child(even) { background-color: #f8f9fa; }
+        tr:hover { background-color: #eaf1fb; }
+
+        /* --- Login Page --- */
+        #login-section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .school-logo-login {
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        .role-switch {
+            display: flex;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .role-btn {
+            flex: 1;
+            padding: 10px;
+            cursor: pointer;
+            background: #eee;
+        }
+        .role-btn.active { background: var(--primary); color: white; }
+
+        /* --- Dashboard Layout --- */
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--dark);
+            color: white;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            transition: 0.3s;
+            z-index: 100;
+        }
+        .sidebar-header {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .sidebar-menu button {
+            display: block;
+            width: 100%;
+            padding: 15px 20px;
+            background: transparent;
+            color: #ccc;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .sidebar-menu button:hover, .sidebar-menu button.active {
+            background: var(--primary);
+            color: white;
+        }
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 20px;
+        }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        /* --- ID Card Styling --- */
+        .id-card {
+            width: 350px;
+            height: 550px;
+            background: linear-gradient(to bottom, #f8f9fa, #fff);
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+            text-align: center;
+            padding: 20px;
+            font-family: sans-serif; /* Standard font for print */
+        }
+        .id-header {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            margin: -20px -20px 20px -20px;
+        }
+        .id-photo {
+            width: 120px;
+            height: 120px;
+            background: #ddd;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            border: 4px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            object-fit: cover;
+        }
+        .id-details p { margin: 8px 0; font-size: 14px; color: #444; font-weight: bold; }
+        .id-details span { color: #666; font-weight: normal; }
+        .id-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            padding: 0 20px;
+        }
+        .signature-box { text-align: center; }
+        .signature-img { height: 50px; width: 100px; object-fit: contain; margin-bottom: 5px; }
+        .qr-code img { width: 80px; height: 80px; }
+
+        /* --- Toast Notification --- */
+        #toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
+        .toast {
+            background: #333; color: white; padding: 12px 24px;
+            border-radius: 4px; margin-top: 10px; animation: fadeIn 0.3s;
+        }
+        .toast.success { background: var(--secondary); }
+        .toast.error { background: var(--danger); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- Print Styles --- */
+        @media print {
+            body * { visibility: hidden; }
+            #printable-area, #printable-area * { visibility: visible; }
+            #printable-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+            .sidebar, .header-top, #toast-container, .no-print { display: none !important; }
+            .id-card { page-break-inside: avoid; border: 1px solid #000; box-shadow: none; }
+        }
+
+        /* --- Mobile Responsive --- */
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.active { transform: translateX(0); }
+            .main-content { margin-left: 0; }
+            .menu-toggle { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container"></div>
+
+    <!-- Login Section -->
+    <section id="login-section">
+        <div class="login-box">
+            <div class="school-logo-login">FPH</div>
+            <h2>ফিজা প্রাইভেট হোম</h2>
+            <p>এরপ ম্যানেজমেন্ট সিস্টেম</p>
+            <br>
+            <div class="role-switch">
+                <div class="role-btn active" onclick="switchLoginRole('teacher')">শিক্ষক / অ্যাডমিন</div>
+                <div class="role-btn" onclick="switchLoginRole('student')">ছাত্র</div>
+            </div>
+            
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <input type="text" id="username" class="form-control" placeholder="ইউজারনেম / রোল নম্বর" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" class="form-control" placeholder="পাসওয়ার্ড (ছাত্রদের জন্য খালি রাখুন)">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%">লগইন করুন</button>
+            </form>
+            <p style="margin-top: 10px; font-size: 12px; color: #666;">ডেমো অ্যাডমিন: admin / 1234</p>
+        </div>
+    </section>
+
+    <!-- Main Dashboard (Teacher/Admin Portal) -->
+    <section id="teacher-dashboard" class="dashboard-container hidden">
+        <aside class="sidebar" id="teacher-sidebar">
+            <div class="sidebar-header">
+                <h3>ফিজা প্রাইভেট হোম</h3>
+                <small>অ্যাডমিন প্যানেল</small>
+            </div>
+            <nav class="sidebar-menu">
+                <button class="active" onclick="showSection('t-home')">🏠 ড্যাশবোর্ড</button>
+                <button onclick="showSection('t-admission')">📝 নতুন ভর্তি (Admission)</button>
+                <button onclick="showSection('t-students')">🎓 সকল ছাত্র</button>
+                <button onclick="showSection('t-attendance')">📅 দৈনিক উপস্থিতি</button>
+                <button onclick="showSection('t-result')">📊 রেজাল্ট প্রসেসিং</button>
+                <button onclick="showSection('t-routine')">⏰ ক্লাস রুটিন</button>
+                <button onclick="showSection('t-notice')">📢 নোটিশ বোর্ড</button>
+                <button onclick="showSection('t-idcard')">🆔 আইডি কার্ড জেনারেটর</button>
+                <button onclick="logout()" style="background: #d93025; margin-top: 20px;">🚪 লগআউট</button>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="header-top">
+                <h2 id="page-title">ড্যাশবোর্ড</h2>
+                <div>
+                    <span>স্বাগতম, অ্যাডমিন স্যার</span>
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=1a73e8&color=fff" style="width: 40px; vertical-align: middle; border-radius: 50%;">
+                </div>
+            </div>
+
+            <!-- Sections -->
+            <div id="t-home" class="content-section">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                    <div class="card" style="border-left: 5px solid var(--primary);">
+                        <h3>মোট ছাত্র</h3>
+                        <p id="total-students-count" style="font-size: 24px; font-weight: bold;">0</p>
+                    </div>
+                    <div class="card" style="border-left: 5px solid var(--secondary);">
+                        <h3>আজকের উপস্থিতি</h3>
+                        <p id="today-attendance-count" style="font-size: 24px; font-weight: bold;">0%</p>
+                    </div>
+                    <div class="card" style="border-left: 5px solid orange;">
+                        <h3>নোটিশ</h3>
+                        <p id="active-notice-count" style="font-size: 24px; font-weight: bold;">0</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>📢 সর্বশেষ নোটিশ</h3>
+                    <ul id="dashboard-notice-list" style="margin-top: 10px; padding-left: 20px;"></ul>
+                </div>
+            </div>
+
+            <div id="t-admission" class="content-section hidden">
+                <div class="card">
+                    <h3>📝 নতুন ছাত্র ভর্তি ফরম</h3>
+                    <form id="admission-form" onsubmit="handleAdmission(event)">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div class="form-group">
+                                <label class="form-label">ছাত্রের নাম</label>
+                                <input type="text" id="adm-name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">পিতার নাম</label>
+                                <input type="text" id="adm-father" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">শ্রেণী (Class)</label>
+                                <select id="adm-class" class="form-control">
+                                    <option value="Six">ষষ্ঠ (Six)</option>
+                                    <option value="Seven">সপ্তম (Seven)</option>
+                                    <option value="Eight">অষ্টম (Eight)</option>
+                                    <option value="Nine">নবম (Nine)</option>
+                                    <option value="Ten">দশম (Ten)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">শাখা (Section)</label>
+                                <select id="adm-section" class="form-control">
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">ছবি আপলোড করুন</label>
+                            <input type="file" id="adm-photo" class="form-control" accept="image/*" onchange="previewImage(event)">
+                            <img id="img-preview" src="" style="width: 100px; height: 100px; margin-top: 10px; display: none; object-fit: cover; border-radius: 50%;">
+                        </div>
+                        <button type="submit" class="btn btn-primary">ভর্তি সম্পন্ন করুন</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="t-students" class="content-section hidden">
+                <div class="card">
+                    <h3>🎓 সকল ছাত্রের তালিকা</h3>
+                    <input type="text" id="search-student" class="form-control" placeholder="নাম বা রোল দিয়ে খুঁজুন..." onkeyup="renderStudentList()">
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>রোল (ID)</th>
+                                    <th>ছবি</th>
+                                    <th>নাম</th>
+                                    <th>শ্রেণী</th>
+                                    <th>অভিভাবক</th>
+                                    <th>অ্যাকশন</th>
+                                </tr>
+                            </thead>
+                            <tbody id="student-table-body">
+                                <!-- JS will populate -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="t-attendance" class="content-section hidden">
+                <div class="card">
+                    <h3>📅 দৈনিক উপস্থিতি</h3>
+                    <div class="form-group">
+                        <label class="form-label">তারিখ নির্বাচন করুন</label>
+                        <input type="date" id="attendance-date" class="form-control" onchange="loadAttendanceSheet()">
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>রোল</th>
+                                <th>নাম</th>
+                                <th>উপস্থিতি (P)</th>
+                                <th>অনুপস্থিতি (A)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendance-body">
+                            <!-- JS Populate -->
+                        </tbody>
+                    </table>
+                    <button class="btn btn-success" style="margin-top: 20px;" onclick="saveAttendance()">উপস্থিতি সংরক্ষণ করুন</button>
+                </div>
+            </div>
+
+            <div id="t-result" class="content-section hidden">
+                <div class="card">
+                    <h3>📊 রেজাল্ট প্রসেসিং</h3>
+                    <div class="form-group">
+                        <label class="form-label">পরীক্ষার নাম</label>
+                        <input type="text" id="exam-name" class="form-control" placeholder="যেমন: মাসিক টেস্ট - ১">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">শিক্ষার্থী নির্বাচন (রোল)</label>
+                        <select id="result-student-select" class="form-control" onchange="loadStudentForResult()"></select>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 15px;">
+                        <div class="form-group">
+                            <label>বাংলা (১০০)</label>
+                            <input type="number" id="mark-bn" class="form-control marks-input" max="100">
+                        </div>
+                        <div class="form-group">
+                            <label>ইংরেজি (১০০)</label>
+                            <input type="number" id="mark-en" class="form-control marks-input" max="100">
+                        </div>
+                        <div class="form-group">
+                            <label>গণিত (১০০)</label>
+                            <input type="number" id="mark-math" class="form-control marks-input" max="100">
+                        </div>
+                        <div class="form-group">
+                            <label>বিজ্ঞান (১০০)</label>
+                            <input type="number" id="mark-sci" class="form-control marks-input" max="100">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="publishResult()">রেজাল্ট প্রকাশ করুন</button>
+                </div>
+            </div>
+
+            <div id="t-routine" class="content-section hidden">
+                <div class="card">
+                    <h3>⏰ ক্লাস রুটিন</h3>
+                    <div class="form-group">
+                        <label>শ্রেণী নির্বাচন করুন</label>
+                        <select id="routine-class" class="form-control" onchange="renderRoutineTable('teacher')">
+                            <option value="Six">ষষ্ঠ</option>
+                            <option value="Seven">সপ্তম</option>
+                            <option value="Eight">অষ্টম</option>
+                            <option value="Nine">নবম</option>
+                            <option value="Ten">দশম</option>
+                        </select>
+                    </div>
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>সময়</th>
+                                <th>রবিবার</th>
+                                <th>সোমবার</th>
+                                <th>মঙ্গলবার</th>
+                                <th>বুধবার</th>
+                                <th>বৃহস্পতিবার</th>
+                            </tr>
+                        </thead>
+                        <tbody id="routine-body">
+                            <!-- Routine populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="t-notice" class="content-section hidden">
+                <div class="card">
+                    <h3>📢 নোটিশ বোর্ড</h3>
+                    <form onsubmit="postNotice(event)" style="margin-bottom: 20px;">
+                        <div class="form-group">
+                            <input type="text" id="notice-title" class="form-control" placeholder="নোটিশের শিরোনাম" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="notice-desc" class="form-control" rows="3" placeholder="বিস্তারিত..." required></textarea>
+                        </div>
+                        <button class="btn btn-primary">নোটিশ পোস্ট করুন</button>
+                    </form>
+                    <div id="notice-board-list"></div>
+                </div>
+            </div>
+
+            <div id="t-idcard" class="content-section hidden">
+                <div class="card">
+                    <h3>🆔 আইডি কার্ড জেনারেটর</h3>
+                    <div class="form-group">
+                        <label>অধ্যক্ষ/কর্তৃপক্ষের স্বাক্ষর আপলোড করুন</label>
+                        <input type="file" id="auth-signature" class="form-control" accept="image/*" onchange="updateSignature(this)">
+                    </div>
+                    <div class="form-group">
+                        <label>ছাত্র নির্বাচন করুন</label>
+                        <select id="idcard-student-select" class="form-control" onchange="generateIDCardPreview()"></select>
+                    </div>
+                    <button class="btn btn-primary" onclick="printIDCard()">ডাউনলোড / প্রিন্ট আইডি কার্ড</button>
+                    
+                    <div style="margin-top: 30px; display: flex; justify-content: center;">
+                        <div id="printable-area">
+                            <!-- ID Card will be rendered here -->
+                            <div id="id-card-preview" class="id-card">
+                                <div class="id-header">
+                                    <h3>ফিজা প্রাইভেট হোম</h3>
+                                    <p>School ID Card</p>
+                                </div>
+                                <img src="" id="card-photo" class="id-photo">
+                                <div class="id-details">
+                                    <p>নাম: <span id="card-name">...</span></p>
+                                    <p>ক্লাস: <span id="card-class">...</span></p>
+                                    <p>রোল: <span id="card-roll">...</span></p>
+                                    <p>রক্তের গ্রুপ: <span id="card-blood">O+</span></p>
+                                    <p>মোবাইল: <span id="card-mobile">01700000000</span></p>
+                                </div>
+                                <div class="id-footer">
+                                    <div class="signature-box">
+                                        <img src="" id="card-sig" class="signature-img" alt="Signature">
+                                        <p>স্বাক্ষর</p>
+                                    </div>
+                                    <div class="qr-code">
+                                        <img id="card-qr" src="" alt="QR Code">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </section>
+
+    <!-- Student Portal -->
+    <section id="student-dashboard" class="dashboard-container hidden">
+        <aside class="sidebar" id="student-sidebar">
+            <div class="sidebar-header">
+                <h3>ছাত্র পোর্টাল</h3>
+                <small>Fiza Private Home</small>
+            </div>
+            <nav class="sidebar-menu">
+                <button class="active" onclick="showStudentSection('s-home')">🏠 হোম</button>
+                <button onclick="showStudentSection('s-result')">📊 আমার রেজাল্ট</button>
+                <button onclick="showStudentSection('s-attendance')">📅 আমার উপস্থিতি</button>
+                <button onclick="showStudentSection('s-routine')">⏰ ক্লাস রুটিন</button>
+                <button onclick="showStudentSection('s-notice')">📢 নোটিশ</button>
+                <button onclick="showStudentSection('s-idcard')">🆔 আইডি কার্ড</button>
+                <button onclick="logout()" style="background: #d93025; margin-top: 20px;">🚪 লগআউট</button>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="header-top">
+                <h2 id="student-page-title">ছাত্র ড্যাশবোর্ড</h2>
+                <div id="student-profile-info"></div>
+            </div>
+
+            <div id="s-home" class="content-section">
+                <div class="card" style="text-align: center;">
+                    <h2>স্বাগতম!</h2>
+                    <p style="font-size: 18px; margin-top: 10px;">ফিজা প্রাইভেট হোম ERP-তে আপনাকে স্বাগতম। আপনার রেজাল্ট, রুটিন এবং অন্যান্য তথ্যের জন্য বাম পাশের মেনু ব্যবহার করুন।</p>
+                </div>
+            </div>
+
+            <div id="s-result" class="content-section hidden">
+                <div class="card">
+                    <h3>📊 পরীক্ষার ফলাফল</h3>
+                    <div id="student-result-view"></div>
+                </div>
+            </div>
+
+            <div id="s-attendance" class="content-section hidden">
+                <div class="card">
+                    <h3>📅 উপস্থিতির হিসাব</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>তারিখ</th>
+                                <th>অবস্থা</th>
+                            </tr>
+                        </thead>
+                        <tbody id="s-attendance-body"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="s-routine" class="content-section hidden">
+                <div class="card">
+                    <h3>⏰ আমার ক্লাস রুটিন</h3>
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>সময়</th>
+                                <th>রবিবার</th>
+                                <th>সোমবার</th>
+                                <th>মঙ্গলবার</th>
+                                <th>বুধবার</th>
+                                <th>বৃহস্পতিবার</th>
+                            </tr>
+                        </thead>
+                        <tbody id="s-routine-body"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="s-notice" class="content-section hidden">
+                <div class="card">
+                    <h3>📢 স্কুল নোটিশ</h3>
+                    <ul id="s-notice-list"></ul>
+                </div>
+            </div>
+
+            <div id="s-idcard" class="content-section hidden">
+                <div class="card">
+                    <h3>🆔 আমার আইডি কার্ড</h3>
+                    <button class="btn btn-primary" onclick="printIDCard()">প্রিন্ট করুন</button>
+                    <div style="margin-top: 20px; display: flex; justify-content: center;">
+                        <div id="s-printable-area"></div> <!-- JS will populate here -->
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </section>
+
+    <!-- Hidden Printable Area Logic -->
+    <div id="hidden-print-container" class="hidden"></div>
+
+    <script>
+        // --- State Management ---
+        const state = {
+            currentUser: null, // 'teacher' or object of student
+            role: 'teacher',
+            students: [
+                { id: 101, name: "করিম উদ্দিন", father: "জব্বার আলী", class: "Ten", section: "A", photo: "https://ui-avatars.com/api/?name=Karim&background=random", blood: "B+", mobile: "01700000001", results: [] },
+                { id: 102, name: "রহিম শেখ", father: "করিম শেখ", class: "Nine", section: "B", photo: "https://ui-avatars.com/api/?name=Rahim&background=random", blood: "O+", mobile: "01700000002", results: [] }
+            ],
+            notices: [
+                { id: 1, title: "আগামীকাল স্কুল বন্ধ থাকবে", date: "2023-10-25", desc: "বৃষ্টির কারণে স্কুল বন্ধ ঘোষণা করা হলো।" }
+            ],
+            attendance: {}, // { "2023-10-25": { 101: "P", 102: "A" } }
+            routine: {
+                "Six": [
+                    { time: "08:00 - 09:00", days: ["বাংলা", "ইংরেজি", "গণিত", "বাংলা", "ধর্ম"] },
+                    { time: "09:00 - 10:00", days: ["ইংরেজি", "গণিত", "বিজ্ঞান", "ইংরেজি", "বাংলা"] }
+                ]
+            },
+            signature: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Signature_sample.svg/1200px-Signature_sample.svg.png" // Placeholder
+        };
+
+        // --- Initialization ---
+        window.onload = function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('attendance-date').value = today;
+            updateDashboardStats();
+        };
+
+        // --- Auth Logic ---
+        let loginRole = 'teacher';
+
+        function switchLoginRole(role) {
+            loginRole = role;
+            document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const passField = document.getElementById('password');
+            if(role === 'student') {
+                passField.style.display = 'none';
+                document.getElementById('username').placeholder = "রোল নম্বর লিখুন (যেমন: 101)";
+            } else {
+                passField.style.display = 'block';
+                document.getElementById('username').placeholder = "ইউজারনেম (admin)";
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+
+            if (loginRole === 'teacher') {
+                if (user === 'admin' && pass === '1234') {
+                    state.currentUser = 'admin';
+                    showDashboard('teacher');
+                    showToast('সফলভাবে লগইন হয়েছে', 'success');
+                } else {
+                    showToast('ভুল ইউজারনেম বা পাসওয়ার্ড!', 'error');
+                }
+            } else {
+                const student = state.students.find(s => s.id == user);
+                if (student) {
+                    state.currentUser = student;
+                    state.role = 'student';
+                    initStudentPortal();
+                    showDashboard('student');
+                    showToast(`স্বাগতম, ${student.name}`, 'success');
+                } else {
+                    showToast('রোল নম্বর পাওয়া যায়নি!', 'error');
+                }
+            }
+        }
+
+        function logout() {
+            location.reload();
+        }
+
+        function showDashboard(role) {
+            document.getElementById('login-section').classList.add('hidden');
+            if(role === 'teacher') {
+                document.getElementById('teacher-dashboard').classList.remove('hidden');
+                populateTeacherSelects();
+                renderStudentList();
+                renderNotices();
+                renderRoutineTable('teacher');
+                loadAttendanceSheet();
+            } else {
+                document.getElementById('student-dashboard').classList.remove('hidden');
+            }
+        }
+
+        // --- Navigation ---
+        function showSection(sectionId) {
+            // Hide all teacher sections
+            document.querySelectorAll('#teacher-dashboard .content-section').forEach(el => el.classList.add('hidden'));
+            // Show target
+            document.getElementById(sectionId).classList.remove('hidden');
+            // Update Title
+            const titles = {
+                't-home': 'ড্যাশবোর্ড', 't-admission': 'ভর্তি ফরম', 't-students': 'ছাত্র তালিকা',
+                't-attendance': 'উপস্থিতি', 't-result': 'রেজাল্ট প্রসেসিং', 't-routine': 'রুটিন',
+                't-notice': 'নোটিশ বোর্ড', 't-idcard': 'আইডি কার্ড'
+            };
+            document.getElementById('page-title').innerText = titles[sectionId];
+        }
+
+        function showStudentSection(sectionId) {
+            document.querySelectorAll('#student-dashboard .content-section').forEach(el => el.classList.add('hidden'));
+            document.getElementById(sectionId).classList.remove('hidden');
+            
+            // Logic to load specific student data
+            if(sectionId === 's-home') loadStudentHome();
+            if(sectionId === 's-result') loadStudentResult();
+            if(sectionId === 's-attendance') loadStudentAttendance();
+            if(sectionId === 's-routine') loadStudentRoutine();
+            if(sectionId === 's-notice') loadStudentNotices();
+            if(sectionId === 's-idcard') loadStudentIDCard();
+        }
+
+        // --- Admission & Student Management ---
+        function previewImage(event) {
+            const output = document.getElementById('img-preview');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.style.display = 'block';
+        }
+
+        function handleAdmission(e) {
+            e.preventDefault();
+            const name = document.getElementById('adm-name').value;
+            const father = document.getElementById('adm-father').value;
+            const className = document.getElementById('adm-class').value;
+            const section = document.getElementById('adm-section').value;
+            const photoInput = document.getElementById('adm-photo');
+            
+            let photoUrl = "https://ui-avatars.com/api/?name=" + name + "&background=random";
+            
+            // Auto ID Logic (Max ID + 1)
+            const maxId = state.students.length > 0 ? Math.max(...state.students.map(s => s.id)) : 100;
+            const newId = maxId + 1;
+
+            // Process Image
+            if (photoInput.files && photoInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    saveStudent(newId, name, father, className, section, e.target.result);
+                };
+                reader.readAsDataURL(photoInput.files[0]);
+            } else {
+                saveStudent(newId, name, father, className, section, photoUrl);
+            }
+        }
+
+        function saveStudent(id, name, father, className, section, photo) {
+            state.students.push({
+                id: id,
+                name: name,
+                father: father,
+                class: className,
+                section: section,
+                photo: photo,
+                blood: "O+",
+                mobile: "N/A",
+                results: []
+            });
+            showToast(`ভর্তি সফল হয়েছে! রোল নম্বর: ${id}`, 'success');
+            document.getElementById('admission-form').reset();
+            document.getElementById('img-preview').style.display = 'none';
+            updateDashboardStats();
+            renderStudentList();
+        }
+
+        function renderStudentList() {
+            const tbody = document.getElementById('student-table-body');
+            const search = document.getElementById('search-student').value.toLowerCase();
+            tbody.innerHTML = '';
+
+            state.students.forEach((s, index) => {
+                if (s.name.toLowerCase().includes(search) || s.id.toString().includes(search)) {
+                    const row = `
+                        <tr>
+                            <td>${s.id}</td>
+                            <td><img src="${s.photo}" width="40" height="40" style="border-radius:50%; object-fit:cover;"></td>
+                            <td>${s.name}</td>
+                            <td>${s.class} (${s.section})</td>
+                            <td>${s.father}</td>
+                            <td>
+                                <button class="btn btn-danger btn-sm" onclick="deleteStudent(${index})">মুছে ফেলুন</button>
+                            </td>
+                        </tr>
+                    `;
+                    tbody.innerHTML += row;
+                }
+            });
+            updateDashboardStats();
+        }
+
+        function deleteStudent(index) {
+            if(confirm("আপনি কি নিশ্চিত এই ছাত্রকে মুছে ফেলতে চান?")) {
+                state.students.splice(index, 1);
+                renderStudentList();
+                showToast("ছাত্র মুছে ফেলা হয়েছে", "error");
+            }
+        }
+
+        // --- Attendance Logic ---
+        function loadAttendanceSheet() {
+            const date = document.getElementById('attendance-date').value;
+            const tbody = document.getElementById('attendance-body');
+            tbody.innerHTML = '';
+
+            // Check if data exists for this date
+            const existingData = state.attendance[date] || {};
+
+            state.students.forEach(s => {
+                const status = existingData[s.id] || ''; // Default empty
+                const pChecked = status === 'P' ? 'checked' : '';
+                const aChecked = status === 'A' ? 'checked' : '';
+
+                const row = `
+                    <tr>
+                        <td>${s.id}</td>
+                        <td>${s.name}</td>
+                        <td style="text-align:center"><input type="radio" name="att_${s.id}" value="P" ${pChecked}></td>
+                        <td style="text-align:center"><input type="radio" name="att_${s.id}" value="A" ${aChecked}></td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function saveAttendance() {
+            const date = document.getElementById('attendance-date').value;
+            const record = {};
+            state.students.forEach(s => {
+                const radios = document.getElementsByName(`att_${s.id}`);
+                let val = '';
+                for(const r of radios) {
+                    if(r.checked) val = r.value;
+                }
+                if(val) record[s.id] = val;
+            });
+            state.attendance[date] = record;
+            showToast("উপস্থিতি সংরক্ষিত হয়েছে", "success");
+            updateDashboardStats();
+        }
+
+        // --- Result Logic ---
+        function populateTeacherSelects() {
+            const sel = document.getElementById('result-student-select');
+            const idSel = document.getElementById('idcard-student-select');
+            sel.innerHTML = '<option value="">ছাত্র বাছাই করুন</option>';
+            idSel.innerHTML = '<option value="">ছাত্র বাছাই করুন</option>';
+            
+            state.students.forEach(s => {
+                const opt = `<option value="${s.id}">${s.id} - ${s.name} (${s.class})</option>`;
+                sel.innerHTML += opt;
+                idSel.innerHTML += opt;
+            });
+        }
+
+        function loadStudentForResult() {
+            const id = document.getElementById('result-student-select').value;
+            // Clear inputs
+            document.querySelectorAll('.marks-input').forEach(i => i.value = '');
+        }
+
+        function publishResult() {
+            const id = document.getElementById('result-student-select').value;
+            const exam = document.getElementById('exam-name').value;
+            const bn = parseInt(document.getElementById('mark-bn').value) || 0;
+            const en = parseInt(document.getElementById('mark-en').value) || 0;
+            const math = parseInt(document.getElementById('mark-math').value) || 0;
+            const sci = parseInt(document.getElementById('mark-sci').value) || 0;
+            const total = bn + en + math + sci;
+            const gpa = (total / 400 * 5).toFixed(2); // Simple GPA
+
+            if(!id) { showToast("ছাত্র বাছাই করুন", "error"); return; }
+
+            const student = state.students.find(s => s.id == id);
+            const resultObj = {
+                exam: exam,
+                marks: { bn, en, math, sci },
+                total: total,
+                gpa: gpa,
+                date: new Date().toLocaleDateString()
+            };
+            student.results.push(resultObj);
+            showToast("রেজাল্ট প্রকাশিত হয়েছে!", "success");
+        }
+
+        // --- Routine & Notices ---
+        function renderRoutineTable(portal) {
+            // Populating a mock routine logic for all classes for demo simplicity
+            const cls = document.getElementById('routine-class') ? document.getElementById('routine-class').value : (state.currentUser ? state.currentUser.class : 'Six');
+            const bodyId = portal === 'teacher' ? 'routine-body' : 's-routine-body';
+            const tbody = document.getElementById(bodyId);
+            tbody.innerHTML = '';
+
+            const data = state.routine[cls] || state.routine["Six"]; // Fallback to Six if class specific data missing
+
+            data.forEach(row => {
+                let html = `<tr><td>${row.time}</td>`;
+                row.days.forEach(sub => {
+                    html += `<td>${sub}</td>`;
+                });
+                html += `</tr>`;
+                tbody.innerHTML += html;
+            });
+        }
+
+        function renderNotices() {
+            const list = document.getElementById('dashboard-notice-list');
+            list.innerHTML = '';
+            state.notices.forEach(n => {
+                list.innerHTML += `<li><b>${n.date}:</b> ${n.title}</li>`;
+            });
+            
+            // Notice Board List
+            const board = document.getElementById('notice-board-list');
+            board.innerHTML = '';
+            state.notices.forEach(n => {
+                board.innerHTML += `
+                    <div style="border-bottom:1px solid #eee; padding:10px 0;">
+                        <h4>${n.title} <small style="color:#888; font-size:12px;">${n.date}</small></h4>
+                        <p>${n.desc}</p>
+                    </div>
+                `;
+            });
+            updateDashboardStats();
+        }
+
+        function postNotice(e) {
+            e.preventDefault();
+            const title = document.getElementById('notice-title').value;
+            const desc = document.getElementById('notice-desc').value;
+            state.notices.unshift({
+                id: Date.now(),
+                title: title,
+                desc: desc,
+                date: new Date().toISOString().split('T')[0]
+            });
+            document.getElementById('notice-title').value = '';
+            document.getElementById('notice-desc').value = '';
+            renderNotices();
+            showToast("নোটিশ পোস্ট করা হয়েছে", "success");
+        }
+
+        // --- ID Card Generator ---
+        function updateSignature(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    state.signature = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function generateIDCardPreview() {
+            const id = document.getElementById('idcard-student-select').value;
+            if(!id) return;
+
+            const s = state.students.find(st => st.id == id);
+            
+            document.getElementById('card-photo').src = s.photo;
+            document.getElementById('card-name').innerText = s.name;
+            document.getElementById('card-class').innerText = s.class;
+            document.getElementById('card-roll').innerText = s.id;
+            document.getElementById('card-sig').src = state.signature;
+            
+            // Real QR Code API
+            document.getElementById('card-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=StudentID:${s.id},Name:${s.name},School:FizaPrivateHome`;
+        }
+
+        function printIDCard() {
+            window.print();
+        }
+
+        // --- Student Portal Logic ---
+        function initStudentPortal() {
+            const s = state.currentUser;
+            document.getElementById('student-profile-info').innerHTML = `
+                <span>স্বাগতম, ${s.name}</span>
+                <img src="${s.photo}" style="width: 40px; vertical-align: middle; border-radius: 50%; margin-left: 10px;">
+            `;
+        }
+
+        function loadStudentHome() {
+            document.getElementById('student-page-title').innerText = "ছাত্র ড্যাশবোর্ড";
+        }
+
+        function loadStudentResult() {
+            const view = document.getElementById('student-result-view');
+            const results = state.currentUser.results;
+            if(results.length === 0) {
+                view.innerHTML = "<p>কোনো রেজাল্ট প্রকাশিত হয়নি।</p>";
+                return;
+            }
+            let html = '<table><thead><tr><th>পরীক্ষা</th><th>বাংলা</th><th>ইংরেজি</th><th>গণিত</th><th>বিজ্ঞান</th><th>মোট</th><th>GPA</th></tr></thead><tbody>';
+            results.forEach(r => {
+                html += `<tr>
+                    <td>${r.exam}</td>
+                    <td>${r.marks.bn}</td>
+                    <td>${r.marks.en}</td>
+                    <td>${r.marks.math}</td>
+                    <td>${r.marks.sci}</td>
+                    <td>${r.total}</td>
+                    <td>${r.gpa}</td>
+                </tr>`;
+            });
+            html += '</tbody></table>';
+            view.innerHTML = html;
+        }
+
+        function loadStudentAttendance() {
+            const tbody = document.getElementById('s-attendance-body');
+            tbody.innerHTML = '';
+            
+            // Iterate over attendance keys
+            for (const [date, records] of Object.entries(state.attendance)) {
+                if (records[state.currentUser.id]) {
+                    const status = records[state.currentUser.id];
+                    const color = status === 'P' ? 'green' : 'red';
+                    const text = status === 'P' ? 'উপস্থিত' : 'অনুপস্থিত';
+                    tbody.innerHTML += `<tr><td>${date}</td><td style="color:${color}; font-weight:bold;">${text}</td></tr>`;
+                }
+            }
+            if(tbody.innerHTML === '') tbody.innerHTML = '<tr><td colspan="2">কোনো তথ্য পাওয়া যায়নি</td></tr>';
+        }
+
+        function loadStudentRoutine() {
+            // Clone teacher routine logic
+            renderRoutineTable('student');
+        }
+
+        function loadStudentNotices() {
+            const list = document.getElementById('s-notice-list');
+            list.innerHTML = '';
+            state.notices.forEach(n => {
+                list.innerHTML += `
+                    <li style="margin-bottom: 15px; background: #f9f9f9; padding: 10px; border-radius: 5px;">
+                        <strong>${n.title}</strong> <small>(${n.date})</small><br>
+                        ${n.desc}
+                    </li>
+                `;
+            });
+        }
+
+        function loadStudentIDCard() {
+            const s = state.currentUser;
+            const container = document.getElementById('s-printable-area');
+            container.innerHTML = `
+                <div class="id-card" id="printable-area">
+                    <div class="id-header">
+                        <h3>ফিজা প্রাইভেট হোম</h3>
+                        <p>School ID Card</p>
+                    </div>
+                    <img src="${s.photo}" class="id-photo">
+                    <div class="id-details">
+                        <p>নাম: <span>${s.name}</span></p>
+                        <p>ক্লাস: <span>${s.class}</span></p>
+                        <p>রোল: <span>${s.id}</span></p>
+                        <p>রক্তের গ্রুপ: <span>${s.blood}</span></p>
+                        <p>মোবাইল: <span>${s.mobile}</span></p>
+                    </div>
+                    <div class="id-footer">
+                        <div class="signature-box">
+                            <img src="${state.signature}" class="signature-img" alt="Signature">
+                            <p>স্বাক্ষর</p>
+                        </div>
+                        <div class="qr-code">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=StudentID:${s.id},Name:${s.name},School:FizaPrivateHome" alt="QR">
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- Utilities ---
+        function updateDashboardStats() {
+            document.getElementById('total-students-count').innerText = state.students.length;
+            document.getElementById('active-notice-count').innerText = state.notices.length;
+            
+            // Calculate today's attendance percentage roughly
+            const today = new Date().toISOString().split('T')[0];
+            const todayAtt = state.attendance[today];
+            if(todayAtt) {
+                const present = Object.values(todayAtt).filter(x => x === 'P').length;
+                const total = Object.keys(todayAtt).length;
+                const percent = total > 0 ? Math.round((present/total)*100) : 0;
+                document.getElementById('today-attendance-count').innerText = percent + "%";
+            }
+        }
+
+        function showToast(msg, type) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerText = msg;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+    </script>
+</body>
+</html>
