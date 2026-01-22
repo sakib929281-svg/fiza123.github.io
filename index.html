@@ -1,149 +1,1407 @@
-<html>
-    <head>
-        <meta name="google-site-verification" content="UVP-8QFyfJHx_Qu1LA564sLiU2LdTrT4vlXd1TDXHIM" />
-        <title>
-            Sakib Ahammed  
-        </title>
-
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    </head>
-    <body>
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Fiza Private Home - Smart ERP Pro (Fixed)</title>
     
-        <section class="Navbar-section">
-            <div class="row">
-                <div class="col-lg-12">
-                    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
-                      <div class="container-fluid">
-                        <a class="navbar-brand" href="#">Navbar</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                          <span class="navbar-toggler-icon"></span>
+    <!-- Bootstrap 5.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- HTML2PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --primary-dark: #2e59d9;
+            --accent-color: #36b9cc;
+            --bg-body: #f8f9fc;
+            --bg-sidebar: #2c3e50;
+            --text-main: #5a5c69;
+            --card-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
+
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade { animation: fadeIn 0.5s ease-out forwards; }
+        
+        .view-section { display: none; padding-bottom: 50px; }
+        .view-section.active { display: block; }
+
+        /* Navbar */
+        .navbar {
+            background: var(--primary-color);
+            box-shadow: 0 4px 15px rgba(78, 115, 223, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        .navbar-brand { font-family: 'Poppins', sans-serif; font-weight: 600; color: white !important; }
+        
+        /* Sidebar */
+        .sidebar {
+            min-height: 100vh;
+            background: linear-gradient(180deg, var(--bg-sidebar) 10%, #1a252f 100%);
+            color: white;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+        }
+        .sidebar .nav-link {
+            color: rgba(255,255,255,0.7);
+            padding: 12px 20px;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+            transform: translateX(5px);
+        }
+        .sidebar .nav-link i { width: 25px; text-align: center; margin-right: 10px; }
+
+        /* Cards */
+        .card {
+            border: none;
+            border-radius: 12px;
+            background: white;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.12); }
+        
+        /* Buttons */
+        .btn { border-radius: 8px; font-weight: 500; padding: 8px 20px; transition: var(--transition); }
+        .btn-primary { background-color: var(--primary-color); border-color: var(--primary-color); }
+        
+        /* Forms */
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 1px solid #e3e6f0;
+            padding: 10px 15px;
+        }
+        .form-control:focus { border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.15); }
+
+        /* ID Card Design */
+        .id-card-wrapper {
+            width: 320px;
+            height: 500px;
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            margin: 0 auto;
+            border: 1px solid #ddd;
+        }
+        .id-header {
+            height: 130px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            position: relative;
+        }
+        .id-header::after {
+            content: ''; position: absolute; bottom: -30px; left: 0; width: 100%; height: 60px;
+            background: #fff; border-radius: 50% 50% 0 0; transform: scaleX(1.5);
+        }
+        .id-photo {
+            width: 120px; height: 120px; border-radius: 50%; border: 4px solid #fff;
+            object-fit: cover; position: absolute; top: 80px; left: 50%; transform: translateX(-50%);
+            background: #f8f9fa; z-index: 10;
+        }
+        .id-body { padding: 60px 20px 20px; text-align: center; position: relative; z-index: 5; }
+        .id-name { font-size: 1.3rem; font-weight: 700; color: #333; margin-bottom: 2px; }
+        .id-role { color: var(--text-light); font-size: 0.9rem; margin-bottom: 15px; font-weight: 600; }
+        .id-info-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.85rem; }
+
+        /* Result Sheet */
+        .result-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white; padding: 25px; border-radius: 12px 12px 0 0; text-align: center;
+        }
+        .result-table th { background: #f8f9fc; font-weight: 600; color: var(--text-main); }
+        .grade-badge { padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+        .g-A-plus { background: #d4edda; color: #155724; }
+        .g-A { background: #cce5ff; color: #004085; }
+        .g-B { background: #fff3cd; color: #856404; }
+        .g-F { background: #f8d7da; color: #721c24; }
+
+        /* Loader */
+        #loader-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.95); z-index: 9999;
+            display: none; justify-content: center; align-items: center; flex-direction: column;
+        }
+        .spinner { width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Toast */
+        .toast-container { position: fixed; top: 20px; right: 20px; z-index: 2000; }
+        .toast-custom {
+            background: white; border-left: 5px solid var(--primary-color);
+            padding: 15px 20px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            margin-bottom: 10px; display: flex; align-items: center; min-width: 300px;
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        /* Print Utilities */
+        @media print {
+            body * { visibility: hidden; }
+            .printable-area, .printable-area * { visibility: visible; }
+            .printable-area {
+                position: absolute; left: 0; top: 0; width: 100%;
+                box-shadow: none; border: none; padding: 0; margin: 0;
+            }
+            .no-print, .sidebar, .navbar { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOADER -->
+    <div id="loader-overlay">
+        <div class="spinner mb-3"></div>
+        <h5 class="text-muted fw-bold">প্রসেসিং হচ্ছে...</h5>
+    </div>
+
+    <!-- TOAST NOTIFICATIONS -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- MAIN NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top no-print" id="mainNavbar">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#" onclick="app.navigate('home')">
+                <i class="fas fa-university fa-lg me-2"></i> 
+                <div class="d-flex flex-column">
+                    <span style="line-height: 1.1;">Fiza Private Home</span>
+                    <small style="font-size: 0.65rem; font-weight: 300;">Smart ERP System v2.1</small>
+                </div>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link text-white" href="#" onclick="app.navigate('home')">হোম</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#" onclick="app.navigate('notice')">নোটিশ</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#" onclick="app.navigate('routine')">রুটিন</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#" onclick="app.navigate('result')">রেজাল্ট</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <button class="btn btn-warning btn-sm text-dark fw-bold px-3 rounded-pill shadow-sm" onclick="app.navigate('login')">
+                            <i class="fas fa-user-shield me-1"></i> অ্যাডমিন
                         </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                              <a class="nav-link active" aria-current="page" href="#">Home</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="#">About Me</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Educational Background
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Katiadi Pilot Boys High School ( Site Not Open )</a></li>
-                                <li><a class="dropdown-item" href="https://tvi.kishoreganj.gov.bd/">Textile Vocational Institute</a></li>
-                                <li><a class="dropdown-item" href="https://npi.narsingdi.gov.bd/">Narsingdi Polytechnic Institute</a></li>
-                              </ul>
-                            </li>
-                              <li class="nav-item">
-                              <a class="nav-link" href="#">Gallary</a>
-                            </li>
-                              <li class="nav-item">
-                              <a class="nav-link" href="#">Massage Me</a>
-                            </li>
-                              <li class="nav-item">
-                              <a class="nav-link" href="#">Career Goal</a>
-                            </li>
-                          </ul>
-                          <form class="d-flex" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                          </form>
-                        </div>
-                      </div>
-                    </nav>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ================= PUBLIC VIEWS ================= -->
+    
+    <!-- 1. HOME VIEW -->
+    <section id="view-home" class="view-section active">
+        <div class="position-relative overflow-hidden">
+            <!-- Hero Image -->
+            <img src="https://picsum.photos/seed/fiza2024/1600/600" class="w-100" style="height: 450px; object-fit: cover; filter: brightness(0.65);" alt="Hero">
+            <div class="position-absolute top-50 start-50 translate-middle text-center text-white w-100 px-3" style="z-index: 2;">
+                <h1 class="display-4 fw-bold animate-fade text-shadow">স্বাগতম ফিজা প্রাইভেট হোম</h1>
+                <p class="lead animate-fade mb-4" style="animation-delay: 0.2s;">আধুনিক ও ডিজিটাল শিক্ষা ব্যবস্থাপনায় আমরা অনন্য।</p>
+                <div class="animate-fade" style="animation-delay: 0.4s;">
+                    <button class="btn btn-light btn-lg fw-bold text-primary px-4 me-2" onclick="app.navigate('result')">রেজাল্ট দেখুন</button>
+                    <button class="btn btn-outline-light btn-lg px-4" onclick="app.navigate('notice')">নোটিশ বোর্ড</button>
                 </div>
             </div>
-        </section>
-        
-        <section class="banner">
-          <div class="row">
-            <div class="col-lg-12">
-             <img src="image.png" style="height:700px; width:100%; margin-top:50px;" alt="Banner Image">
-            </div>
-          </div>
-        </section>
+        </div>
 
-        <section class="about">
-          <div class="row">
-            <div class="col-lg-12" style="text-align: center;font-style: italic; font-size: large;font-weight: bold;">
-              <h1 style="margin-top: 50px;margin-bottom: 50px;">About Me</h1>
-            </div>
-          </div>
-
-            <div class="row">
-              <div class="container">
-            <div class="col-lg-12" style="text-align: center;">
-              <p>I am Sakib Ahammed, a motivated and dedicated professional from Narsingdi, Bangladesh. 
-                Currently, I am pursuing a Bachelor of Science (BSc) in Computer Science and Engineering (CSE) at Uttara University, 
-                where I am developing strong technical and analytical skills'I completed my Junior School Certificate (Class 8) from Katiadi Pilot Boys’ High School. 
-                Subsequently, I obtained my Secondary School Certificate (SSC) from Textile Vocational Institute and later completed my Diploma from Narsingdi Polytechnic Institute, building a solid foundation in technical education.
-                At present, I am employed at the PRAN-RFL Group Head Office as a Trainee Executive MIS, where I am gaining hands-on professional experience, enhancing my organizational skills, and learning to work effectively in a corporate environment.
-                I am a quick learner with a strong sense of responsibility and a passion for continuous improvement.
-                My goal is to build a successful career in the field of Computer Science and Engineering by combining academic knowledge with practical industry experience.</p>
-            </div>
-            </div>
-          </div>
-        </section>
-
-
-         <section class="about">
-          <div class="row">
-            <div class="col-lg-12" style="text-align: center;font-style: italic; font-size: large;font-weight: bold;">
-              <h1 style="margin-top: 50px;margin-bottom: 50px;">Friends Adda</h1>
-            </div>
-          </div>
-             <div class="row">
-                 <div class="col-lg-12">
-                     <div class="card-group">
-                      <div class="card">
-                        <img src="image.png" class="card-img-top" alt="image.png">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        </div>
-                        <div class="card-footer">
-                          <small class="text-body-secondary">Last updated 3 mins ago</small>
-                        </div>
-                      </div>
-                      <div class="card">
-                        <img src="image.png" class="card-img-top" alt="image.png">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                        </div>
-                        <div class="card-footer">
-                          <small class="text-body-secondary">Last updated 3 mins ago</small>
-                        </div>
-                      </div>
-                      <div class="card">
-                        <img src="image.png" class="card-img-top" alt="image.png">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                        </div>
-                        <div class="card-footer">
-                          <small class="text-body-secondary">Last updated 3 mins ago</small>
-                        </div>
-                      </div>
+        <!-- Quick Access Cards -->
+        <div class="container my-5">
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 p-4 text-center border-0 bg-white">
+                        <div class="mb-3 text-warning display-5"><i class="fas fa-bullhorn"></i></div>
+                        <h5 class="fw-bold">নোটিশ বোর্ড</h5>
+                        <p class="small text-muted mb-3">স্কুলের সাম্প্রতিক খবরাখবর</p>
+                        <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="app.navigate('notice')">বিস্তারিত</button>
                     </div>
-                 </div>
-             </div>
-         </section>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 p-4 text-center border-0 bg-white">
+                        <div class="mb-3 text-info display-5"><i class="fas fa-calendar-alt"></i></div>
+                        <h5 class="fw-bold">একাডেমিক রুটিন</h5>
+                        <p class="small text-muted mb-3">পরীক্ষার সময়সূচী ও রুটিন</p>
+                        <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="app.navigate('routine')">দেখুন</button>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 p-4 text-center border-0 bg-white">
+                        <div class="mb-3 text-success display-5"><i class="fas fa-file-invoice"></i></div>
+                        <h5 class="fw-bold">রেজাল্ট আর্কাইভ</h5>
+                        <p class="small text-muted mb-3">মার্কশিট ডাউনলোড করুন</p>
+                        <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="app.navigate('result')">সার্চ</button>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 p-4 text-center border-0 bg-white">
+                        <div class="mb-3 text-primary display-5"><i class="fas fa-address-card"></i></div>
+                        <h5 class="fw-bold">ডিজিটাল আইডি</h5>
+                        <p class="small text-muted mb-3">স্মার্ট আইডি কার্ড সেবা</p>
+                        <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="app.navigate('login')">লগইন করুন</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. NOTICE VIEW -->
+    <section id="view-notice" class="view-section container py-5">
+        <div class="text-center mb-5">
+            <h3 class="fw-bold mb-2"><i class="fas fa-bullhorn text-warning me-2"></i>নোটিশ বোর্ড</h3>
+            <p class="text-muted">স্কুল থেকে জারি করা সকল নোটিশ এখানে প্রদর্শিত হবে।</p>
+        </div>
+        <div id="public-notice-list" class="row justify-content-center">
+            <!-- Loaded via JS -->
+        </div>
+    </section>
+
+    <!-- 3. ROUTINE VIEW -->
+    <section id="view-routine" class="view-section container py-5">
+        <div class="text-center mb-5">
+            <h3 class="fw-bold mb-2"><i class="fas fa-calendar-check text-info me-2"></i>ক্লাস ও পরীক্ষার রুটিন</h3>
+            <p class="text-muted">আপকামিং পরীক্ষা ও ক্লাসের সময়সূচী।</p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="list-group shadow-sm rounded" id="public-routine-list">
+                    <!-- Loaded via JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. RESULT SEARCH VIEW -->
+    <section id="view-result" class="view-section container py-5">
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <div class="card border-0 shadow-lg overflow-hidden">
+                    <div class="card-header bg-primary text-white text-center py-4">
+                        <h4 class="mb-0 fw-bold"><i class="fas fa-search me-2"></i>রেজাল্ট সার্চ</h4>
+                    </div>
+                    <div class="card-body p-5">
+                        <div class="mb-4 text-center">
+                            <p class="text-muted">আপনার স্টুডেন্ট আইডি (ID) দিয়ে রেজাল্ট এবং পেমেন্ট স্ট্যাটাস চেক করুন।</p>
+                        </div>
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text bg-light border-end-0"><i class="fas fa-user-graduate text-primary"></i></span>
+                            <input type="number" id="search-student-id" class="form-control border-start-0" placeholder="আইডি নম্বর লিখুন (যেমন: 101)">
+                            <button class="btn btn-primary px-4 fw-bold" onclick="app.searchResult()">সার্চ করুন</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    </body>
+        <div id="search-result-display" class="d-none animate-fade">
+            <!-- Result Sheet Generated Here -->
+        </div>
+    </section>
+
+    <!-- 5. LOGIN VIEW -->
+    <section id="view-login" class="view-section container py-5">
+        <div class="row justify-content-center align-items-center" style="min-height: 60vh;">
+            <div class="col-md-4">
+                <div class="card shadow-lg border-0 overflow-hidden">
+                    <div class="card-body p-5 text-center">
+                        <div class="mb-4 text-warning display-4"><i class="fas fa-lock"></i></div>
+                        <h4 class="mb-4 fw-bold">অ্যাডমিন লগইন</h4>
+                        <form onsubmit="app.adminLogin(event)">
+                            <div class="mb-3 text-start">
+                                <label class="small fw-bold text-muted">পাসওয়ার্ড</label>
+                                <input type="password" id="admin-pass-input" class="form-control form-control-lg text-center" placeholder="পাসওয়ার্ড দিন (1234)">
+                            </div>
+                            <div id="login-error" class="text-danger small fw-bold mb-3 d-none">ভুল পাসওয়ার্ড! আবার চেষ্টা করুন।</div>
+                            <button type="submit" class="btn btn-primary w-100 btn-lg fw-bold shadow">প্রবেশ করুন</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= ADMIN DASHBOARD ================= -->
+    <section id="view-dashboard" class="view-section bg-light">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-md-2 sidebar p-3 d-none d-md-block">
+                    <div class="text-center mb-4 mt-2">
+                        <i class="fas fa-user-tie fa-3x text-white-50 mb-2"></i>
+                        <h6 class="text-white fw-bold">ADMIN PANEL</h6>
+                        <small class="text-white-50">v2.1 Pro</small>
+                    </div>
+                    <nav class="nav flex-column">
+                        <a class="nav-link active bg-white bg-opacity-10 text-white" href="#" onclick="app.switchTab('dash', this)"><i class="fas fa-tachometer-alt"></i> ড্যাশবোর্ড</a>
+                        <a class="nav-link" href="#" onclick="app.switchTab('students', this)"><i class="fas fa-users"></i> শিক্ষার্থী</a>
+                        <a class="nav-link" href="#" onclick="app.switchTab('results', this)"><i class="fas fa-poll-h"></i> রেজাল্ট প্রসেসিং</a>
+                        <a class="nav-link" href="#" onclick="app.switchTab('payments', this)"><i class="fas fa-money-bill-wave"></i> অর্থ ও হিসাব</a>
+                        <a class="nav-link" href="#" onclick="app.switchTab('notices', this)"><i class="fas fa-newspaper"></i> নোটিশ ও রুটিন</a>
+                        <a class="nav-link" href="#" onclick="app.switchTab('settings', this)"><i class="fas fa-cogs"></i> সেটিংস</a>
+                        <div class="border-top border-secondary my-3"></div>
+                        <a class="nav-link text-danger" href="#" onclick="app.logout()"><i class="fas fa-sign-out-alt"></i> লগআউট</a>
+                    </nav>
+                </div>
+
+                <!-- Mobile Admin Menu -->
+                <div class="col-12 d-md-none bg-dark text-white p-3 d-flex justify-content-between align-items-center no-print">
+                    <span class="fw-bold">Admin Dashboard</span>
+                    <button class="btn btn-sm btn-outline-light" onclick="document.getElementById('mobile-admin-menu').classList.toggle('d-none')">
+                        <i class="fas fa-bars"></i> মেনু
+                    </button>
+                </div>
+                <div class="col-12 d-md-none bg-secondary p-2 d-none no-print" id="mobile-admin-menu">
+                    <div class="d-flex flex-column gap-2">
+                        <a class="btn btn-sm btn-link text-white text-start" onclick="app.switchTab('dash')">ড্যাশবোর্ড</a>
+                        <a class="btn btn-sm btn-link text-white text-start" onclick="app.switchTab('students')">শিক্ষার্থী</a>
+                        <a class="btn btn-sm btn-link text-white text-start" onclick="app.switchTab('results')">রেজাল্ট</a>
+                        <a class="btn btn-sm btn-link text-white text-start" onclick="app.switchTab('payments')">পেমেন্ট</a>
+                        <a class="btn btn-sm btn-link text-white text-start" onclick="app.switchTab('notices')">নোটিশ</a>
+                        <a class="btn btn-sm btn-link text-white text-start" onclick="app.switchTab('settings')">সেটিংস</a>
+                        <a class="btn btn-sm btn-link text-danger text-start" onclick="app.logout()">লগআউট</a>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="col-md-10 p-4 min-vh-100">
+                    
+                    <!-- 1. Dashboard Tab -->
+                    <div id="tab-dash" class="admin-tab">
+                        <h3 class="fw-bold mb-4 text-gray-800">সারসংক্ষেপ</h3>
+                        <div class="row g-4 mb-5">
+                            <div class="col-md-3">
+                                <div class="card border-start border-4 border-primary h-100 p-3 shadow-sm">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <div class="text-uppercase text-xs fw-bold text-primary mb-1">মোট শিক্ষার্থী</div>
+                                            <div class="h3 fw-bold text-gray-800" id="stat-students">0</div>
+                                        </div>
+                                        <i class="fas fa-users fa-2x text-gray-200"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card border-start border-4 border-success h-100 p-3 shadow-sm">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <div class="text-uppercase text-xs fw-bold text-success mb-1">মোট আয়</div>
+                                            <div class="h3 fw-bold text-gray-800" id="stat-income">৳0</div>
+                                        </div>
+                                        <i class="fas fa-wallet fa-2x text-gray-200"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card border-start border-4 border-info h-100 p-3 shadow-sm">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <div class="text-uppercase text-xs fw-bold text-info mb-1">প্রকাশিত রেজাল্ট</div>
+                                            <div class="h3 fw-bold text-gray-800" id="stat-results">0</div>
+                                        </div>
+                                        <i class="fas fa-file-alt fa-2x text-gray-200"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card border-start border-4 border-warning h-100 p-3 shadow-sm">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <div class="text-uppercase text-xs fw-bold text-warning mb-1">সক্রিয় নোটিশ</div>
+                                            <div class="h3 fw-bold text-gray-800" id="stat-notices">0</div>
+                                        </div>
+                                        <i class="fas fa-bell fa-2x text-gray-200"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Students Tab -->
+                    <div id="tab-students" class="admin-tab d-none">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="fw-bold">শিক্ষার্থী তালিকা</h3>
+                            <button class="btn btn-primary rounded-pill px-4 shadow-sm" onclick="app.openStudentModal()"><i class="fas fa-plus me-2"></i> নতুন ভর্তি</button>
+                        </div>
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle mb-0">
+                                        <thead class="bg-light text-muted small text-uppercase">
+                                            <tr>
+                                                <th>ছবি</th>
+                                                <th>আইডি</th>
+                                                <th>নাম</th>
+                                                <th>ক্লাস</th>
+                                                <th>অভিভাবক (মোবাইল)</th>
+                                                <th class="text-end">অ্যাকশন</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="student-list-body">
+                                            <!-- JS Render -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Results Tab -->
+                    <div id="tab-results" class="admin-tab d-none">
+                        <h3 class="mb-4 fw-bold">স্মার্ট রেজাল্ট প্রসেসিং</h3>
+                        
+                        <!-- Step 1 -->
+                        <div class="card shadow-sm mb-4 border-0">
+                            <div class="card-body">
+                                <h6 class="fw-bold text-primary mb-3"><i class="fas fa-cog me-2"></i>পদক্ষেপ ১: পরীক্ষার তথ্য</h6>
+                                <form onsubmit="app.initResultEntry(event)">
+                                    <div class="row g-3">
+                                        <div class="col-md-4">
+                                            <label class="small">পরীক্ষার নাম</label>
+                                            <input type="text" id="res-exam-name" class="form-control" placeholder="যেমন: মাসিক টেস্ট ১" required>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="small">ক্লাস</label>
+                                            <select id="res-class" class="form-select" required>
+                                                <!-- JS Populate -->
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="small">তারিখ</label>
+                                            <input type="date" id="res-date" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-2 d-flex align-items-end">
+                                            <button type="submit" class="btn btn-primary w-100 fw-bold">শুরু করুন</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div id="result-entry-area" class="d-none">
+                            <div class="card shadow-sm border-primary border-0">
+                                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center py-3">
+                                    <h6 class="m-0"><i class="fas fa-edit me-2"></i>পদক্ষেপ ২: নম্বর এন্ট্রি</h6>
+                                    <button class="btn btn-sm btn-light text-primary fw-bold" onclick="app.publishResult()"><i class="fas fa-save me-1"></i> সেভ ও পাবলিশ</button>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-sm align-middle mb-0 text-center" id="result-mark-table">
+                                            <!-- Dynamic Content -->
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Payments Tab -->
+                    <div id="tab-payments" class="admin-tab d-none">
+                        <h3 class="mb-4 fw-bold">পেমেন্ট কালেকশন</h3>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="card shadow-sm mb-4 border-0 h-100">
+                                    <div class="card-body">
+                                        <h6 class="fw-bold text-success mb-3 border-bottom pb-2"><i class="fas fa-cash-register me-2"></i>নতুন পেমেন্ট নিন</h6>
+                                        <form onsubmit="app.takePayment(event)">
+                                            <div class="mb-3">
+                                                <label>শিক্ষার্থী আইডি</label>
+                                                <input type="number" id="pay-id" class="form-control" required oninput="app.verifyStudentForPayment(this.value)">
+                                                <small id="pay-stu-info" class="fw-bold mt-1 d-block" style="font-size: 0.85rem;"></small>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 mb-3">
+                                                    <label>মাস</label>
+                                                    <select id="pay-month" class="form-select" required>
+                                                        <option value="জানুয়ারি">জানুয়ারি</option>
+                                                        <option value="ফেব্রুয়ারি">ফেব্রুয়ারি</option>
+                                                        <option value="মার্চ">মার্চ</option>
+                                                        <option value="এপ্রিল">এপ্রিল</option>
+                                                        <option value="মে">মে</option>
+                                                        <option value="জুন">জুন</option>
+                                                        <option value="জুলাই">জুলাই</option>
+                                                        <option value="আগস্ট">আগস্ট</option>
+                                                        <option value="সেপ্টেম্বর">সেপ্টেম্বর</option>
+                                                        <option value="অক্টোবর">অক্টোবর</option>
+                                                        <option value="নভেম্বর">নভেম্বর</option>
+                                                        <option value="ডিসেম্বর">ডিসেম্বর</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-6 mb-3">
+                                                    <label>টাকা (৳)</label>
+                                                    <input type="number" id="pay-amount" class="form-control" placeholder="0" required>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-success w-100 fw-bold">জমা দিন</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card shadow-sm h-100 border-0">
+                                    <div class="card-body">
+                                        <h6 class="fw-bold text-muted mb-3">সাম্প্রতিক লেনদেনের হিসাব</h6>
+                                        <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                                            <table class="table table-sm table-hover">
+                                                <thead class="table-light sticky-top">
+                                                    <tr>
+                                                        <th>নাম (ID)</th>
+                                                        <th>মাস</th>
+                                                        <th class="text-end">পরিমাণ</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="payment-log-body"></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. Notices & Routines Tab -->
+                    <div id="tab-notices" class="admin-tab d-none">
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="card shadow-sm h-100 border-0">
+                                    <div class="card-header bg-white fw-bold text-primary border-0 pb-0">নোটিশ পোস্ট করুন</div>
+                                    <div class="card-body">
+                                        <form onsubmit="app.postNotice(event)">
+                                            <div class="mb-3">
+                                                <label>শিরোনাম</label>
+                                                <input type="text" id="notice-title" class="form-control" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label>বিস্তারিত</label>
+                                                <textarea id="notice-desc" class="form-control" rows="4" required></textarea>
+                                            </div>
+                                            <button class="btn btn-primary w-100"><i class="fas fa-paper-plane me-2"></i>পোস্ট করুন</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card shadow-sm h-100 border-0">
+                                    <div class="card-header bg-white fw-bold text-info border-0 pb-0">রুটিন যুক্ত করুন</div>
+                                    <div class="card-body">
+                                        <form onsubmit="app.postRoutine(event)">
+                                            <div class="mb-2">
+                                                <label>পরীক্ষার নাম / বিষয়</label>
+                                                <input type="text" id="rout-title" class="form-control" required>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 mb-2">
+                                                    <label>ক্লাস</label>
+                                                    <select id="rout-class" class="form-select" required></select>
+                                                </div>
+                                                <div class="col-6 mb-2">
+                                                    <label>তারিখ ও সময়</label>
+                                                    <input type="datetime-local" id="rout-time" class="form-control" required>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-info w-100 mt-2 text-white"><i class="fas fa-plus me-2"></i>যুক্ত করুন</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="card shadow-sm border-0">
+                                    <div class="card-body">
+                                        <h6 class="fw-bold text-secondary mb-3">বিদ্যমান তথ্য (ডিলিট করতে ক্লিক করুন)</h6>
+                                        <div class="d-flex gap-2 mb-3 flex-wrap" id="admin-notice-list"></div>
+                                        <div class="list-group" id="admin-routine-list"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. Settings Tab -->
+                    <div id="tab-settings" class="admin-tab d-none">
+                        <h3 class="mb-4 fw-bold">সেটিংস</h3>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="card shadow-sm border-0">
+                                    <div class="card-header bg-white fw-bold">সাধারণ সেটিংস</div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <label>স্কুলের নাম</label>
+                                            <input type="text" id="set-school-name" class="form-control">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label>সাল</label>
+                                            <input type="text" id="set-year" class="form-control">
+                                        </div>
+                                        <button onclick="app.saveGeneralSettings()" class="btn btn-primary">আপডেট করুন</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-4">
+                                <div class="card shadow-sm border-0">
+                                    <div class="card-header bg-white fw-bold">ক্লাস ম্যানেজমেন্ট</div>
+                                    <div class="card-body">
+                                        <div class="input-group mb-3">
+                                            <input type="text" id="new-class" class="form-control" placeholder="নতুন ক্লাসের নাম">
+                                            <button onclick="app.addClass()" class="btn btn-success">যোগ করুন</button>
+                                        </div>
+                                        <div id="class-list" class="d-flex flex-wrap gap-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="card shadow-sm border-danger mb-4">
+                                    <div class="card-header bg-danger text-white">ডেঞ্জার জোন</div>
+                                    <div class="card-body">
+                                        <p class="text-danger small">সতর্কবার্তা: এটি করলে সকল ডাটা মুছে যাবে। ফ্যাক্টরি রিসেট।</p>
+                                        <button onclick="app.hardReset()" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt me-2"></i>সিস্টেম রিসেট করুন</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= MODALS ================= -->
+    
+    <!-- Student Admission Modal -->
+    <div class="modal fade" id="studentModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title fw-bold">নতুন শিক্ষার্থী ভর্তি</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="admitForm" onsubmit="app.saveStudent(event)">
+                        <div class="text-center mb-3">
+                            <img id="prev-img" src="https://via.placeholder.com/150" class="rounded-circle border p-1 shadow-sm" style="width:100px; height:100px; object-fit:cover;">
+                            <br>
+                            <label for="st-photo" class="btn btn-sm btn-outline-primary mt-2"><i class="fas fa-camera"></i> ছবি আপলোড</label>
+                            <input type="file" id="st-photo" class="d-none" accept="image/*" onchange="app.handleImage(this)">
+                        </div>
+                        <div class="row g-2">
+                            <div class="col-12">
+                                <label>নাম</label>
+                                <input type="text" id="st-name" class="form-control" required>
+                            </div>
+                            <div class="col-6">
+                                <label>ক্লাস</label>
+                                <select id="st-class" class="form-select" required></select>
+                            </div>
+                            <div class="col-6">
+                                <label>মোবাইল (অভিভাবক)</label>
+                                <input type="text" id="st-mobile" class="form-control" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 mt-3 fw-bold">সেভ করুন</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ID Card Modal -->
+    <div class="modal fade" id="idCardModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content no-print bg-transparent border-0 shadow-none">
+                <div class="d-flex justify-content-end mb-2 no-print">
+                    <button class="btn btn-danger rounded-circle shadow" data-bs-dismiss="modal"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div id="id-card-render-area"></div>
+                </div>
+                <div class="text-center mt-3 no-print">
+                    <button onclick="app.downloadID()" class="btn btn-dark rounded-pill px-4 shadow"><i class="fas fa-download me-2"></i> PDF ডাউনলোড</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const app = {
+            data: {
+                schoolName: "Fiza Private Home",
+                year: "2025",
+                classes: ["Class Six", "Class Seven", "Class Eight", "Class Nine", "Class Ten", "SSC Exam"],
+                subjects: [
+                    { name: "Bangla", marks: 100 },
+                    { name: "English", marks: 100 },
+                    { name: "Math", marks: 100 },
+                    { name: "Science", marks: 100 },
+                    { name: "Religion", marks: 100 },
+                    { name: "ICT", marks: 50 }
+                ],
+                grading: [
+                    { g: "A+", min: 80 }, { g: "A", min: 70 }, { g: "A-", min: 60 },
+                    { g: "B", min: 50 }, { g: "C", min: 40 }, { g: "D", min: 33 },
+                    { g: "F", min: 0 }
+                ],
+                students: [],
+                results: [],
+                notices: [],
+                routines: [],
+                payments: []
+            },
+            
+            // --- Initialization ---
+            init: function() {
+                const saved = localStorage.getItem('fiza_erp_v2_fixed');
+                if(saved) {
+                    try {
+                        const parsed = JSON.parse(saved);
+                        // Merge to ensure structure exists even if old data
+                        this.data = { ...this.data, ...parsed };
+                        // Ensure arrays exist
+                        if(!this.data.students) this.data.students = [];
+                        if(!this.data.results) this.data.results = [];
+                    } catch(e) { console.error("Data load error", e); }
+                }
+                
+                this.updateUI();
+                // Set default date
+                document.getElementById('res-date').valueAsDate = new Date();
+            },
+
+            save: function() {
+                localStorage.setItem('fiza_erp_v2_fixed', JSON.stringify(this.data));
+                this.updateUI();
+            },
+
+            // --- Navigation & UI ---
+            navigate: function(viewId) {
+                document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+                document.getElementById('view-' + viewId).classList.add('active');
+                window.scrollTo(0,0);
+                
+                // Close mobile navbar
+                const nav = document.getElementById('navbarNav');
+                if(nav.classList.contains('show')) new bootstrap.Collapse(nav).hide();
+
+                // Render public content when navigating
+                if(viewId === 'notice') this.renderPublicNotices();
+                if(viewId === 'routine') this.renderPublicRoutines();
+            },
+
+            switchTab: function(tabName, btn) {
+                document.querySelectorAll('.admin-tab').forEach(el => el.classList.add('d-none'));
+                document.getElementById('tab-' + tabName).classList.remove('d-none');
+                
+                if(btn) {
+                    document.querySelectorAll('.sidebar .nav-link').forEach(el => el.classList.remove('active', 'bg-white', 'bg-opacity-10', 'text-white'));
+                    btn.classList.add('active', 'bg-white', 'bg-opacity-10', 'text-white');
+                }
+            },
+
+            adminLogin: function(e) {
+                e.preventDefault();
+                const pass = document.getElementById('admin-pass-input').value;
+                if(pass === '1234') {
+                    this.navigate('dashboard');
+                    document.getElementById('admin-pass-input').value = '';
+                    document.getElementById('login-error').classList.add('d-none');
+                    this.toast('স্বাগতম অ্যাডমিন!', 'success');
+                } else {
+                    document.getElementById('login-error').classList.remove('d-none');
+                }
+            },
+
+            logout: function() {
+                this.navigate('home');
+                this.toast('লগআউট সফল হয়েছে', 'info');
+            },
+
+            toast: function(msg, type='success') {
+                const color = type === 'success' ? '#1cc88a' : (type === 'error' ? '#e74a3b' : '#36b9cc');
+                const icon = type === 'success' ? 'check-circle' : (type === 'error' ? 'exclamation-circle' : 'info-circle');
+                
+                const html = `
+                    <div class="toast-custom" style="border-left-color: ${color}">
+                        <i class="fas fa-${icon} me-2" style="color:${color}; font-size: 1.2rem;"></i>
+                        <span class="fw-bold small">${msg}</span>
+                    </div>`;
+                const container = document.getElementById('toastContainer');
+                container.insertAdjacentHTML('beforeend', html);
+                setTimeout(() => container.lastElementChild.remove(), 3000);
+            },
+
+            showLoader: function(show) {
+                const loader = document.getElementById('loader-overlay');
+                loader.style.display = show ? 'flex' : 'none';
+            },
+
+            // --- Student Management ---
+            handleImage: function(input) {
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        // Compression logic via Canvas
+                        const img = new Image();
+                        img.src = e.target.result;
+                        img.onload = () => {
+                            const canvas = document.createElement('canvas');
+                            const ctx = canvas.getContext('2d');
+                            canvas.width = 300; canvas.height = 300;
+                            ctx.drawImage(img, 0, 0, 300, 300);
+                            this.currentImage = canvas.toDataURL('image/jpeg', 0.6); // Quality 0.6
+                            document.getElementById('prev-img').src = this.currentImage;
+                        }
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            },
+
+            openStudentModal: function() {
+                document.getElementById('admitForm').reset();
+                document.getElementById('prev-img').src = "https://via.placeholder.com/150";
+                this.currentImage = null;
+                this.populateClassSelect('st-class');
+                new bootstrap.Modal(document.getElementById('studentModal')).show();
+            },
+
+            saveStudent: function(e) {
+                e.preventDefault();
+                this.showLoader(true);
+                
+                setTimeout(() => {
+                    const name = document.getElementById('st-name').value;
+                    const cls = document.getElementById('st-class').value;
+                    const mobile = document.getElementById('st-mobile').value;
+                    
+                    const id = this.data.students.length > 0 ? Math.max(...this.data.students.map(s => s.id)) + 1 : 101;
+
+                    const student = {
+                        id, name, class: cls, mobile,
+                        photo: this.currentImage || `https://ui-avatars.com/api/?name=${name}&background=random&size=128`,
+                        payments: []
+                    };
+                    this.data.students.push(student);
+                    this.save();
+                    bootstrap.Modal.getInstance(document.getElementById('studentModal')).hide();
+                    this.showLoader(false);
+                    this.toast('ভর্তি সম্পন্ন হয়েছে');
+                }, 500);
+            },
+
+            // --- Result Processing ---
+            initResultEntry: function(e) {
+                e.preventDefault();
+                const cls = document.getElementById('res-class').value;
+                const filtered = this.data.students.filter(s => s.class === cls);
+                if(filtered.length === 0) return this.toast('এই ক্লাসে কোন ছাত্র নেই', 'error');
+                
+                document.getElementById('result-entry-area').classList.remove('d-none');
+                this.renderResultStructure();
+            },
+
+            renderResultStructure: function() {
+                const cls = document.getElementById('res-class').value;
+                const students = this.data.students.filter(s => s.class === cls);
+                const table = document.getElementById('result-mark-table');
+                
+                let html = `<thead><tr><th>আইডি</th><th>নাম</th>`;
+                this.data.subjects.forEach(sub => {
+                    html += `<th>${sub.name} <br><small class="text-muted">(${sub.marks})</small></th>`;
+                });
+                html += `<th>মোট</th><th>গ্রেড</th></tr></thead><tbody>`;
+
+                students.forEach(s => {
+                    html += `<tr data-id="${s.id}">
+                        <td>${s.id}</td>
+                        <td class="text-start">${s.name}</td>`;
+                    this.data.subjects.forEach(sub => {
+                        html += `<td><input type="number" class="form-control form-control-sm mark-input" data-sub="${sub.name}" data-max="${sub.marks}" oninput="app.calcRow(this)"></td>`;
+                    });
+                    html += `<td class="fw-bold total-cell">0</td><td class="grade-cell">-</td></tr>`;
+                });
+                html += `</tbody>`;
+                table.innerHTML = html;
+            },
+
+            calcRow: function(input) {
+                const row = input.closest('tr');
+                let total = 0;
+                let maxTotal = 0;
+                let valid = true;
+
+                row.querySelectorAll('.mark-input').forEach(inp => {
+                    const val = parseFloat(inp.value);
+                    const max = parseFloat(inp.getAttribute('data-max'));
+                    maxTotal += max;
+                    
+                    if(!isNaN(val)) {
+                        if(val > max) { inp.classList.add('is-invalid'); valid = false; }
+                        else { inp.classList.remove('is-invalid'); total += val; }
+                    }
+                });
+
+                row.querySelector('.total-cell').innerText = total;
+                
+                if(valid && maxTotal > 0) {
+                    const pct = (total / maxTotal) * 100;
+                    const sortedGrading = [...this.data.grading].sort((a,b) => b.min - a.min);
+                    const gradeObj = sortedGrading.find(g => pct >= g.min);
+                    const grade = gradeObj ? gradeObj.g : 'F';
+                    const cell = row.querySelector('.grade-cell');
+                    cell.innerText = grade;
+                    // Color coding
+                    cell.className = 'grade-cell grade-badge ' + (grade === 'F' ? 'g-F' : (grade.startsWith('A') ? 'g-A-plus' : 'g-B'));
+                }
+            },
+
+            publishResult: function() {
+                const name = document.getElementById('res-exam-name').value;
+                const date = document.getElementById('res-date').value;
+                const cls = document.getElementById('res-class').value;
+                
+                const rows = document.querySelectorAll('#result-mark-table tbody tr');
+                const details = [];
+                
+                rows.forEach(row => {
+                    const sid = parseInt(row.getAttribute('data-id'));
+                    const marks = {};
+                    row.querySelectorAll('.mark-input').forEach(inp => {
+                        marks[inp.getAttribute('data-sub')] = inp.value;
+                    });
+                    details.push({ id: sid, marks });
+                });
+
+                this.data.results.push({ examName: name, date, class: cls, details });
+                this.save();
+                document.getElementById('result-entry-area').classList.add('d-none');
+                document.getElementById('res-exam-name').value = '';
+                this.toast('রেজাল্ট সফলভাবে প্রকাশিত হয়েছে');
+            },
+
+            // --- Payments ---
+            verifyStudentForPayment: function(id) {
+                const s = this.data.students.find(st => st.id == id);
+                const info = document.getElementById('pay-stu-info');
+                if(s) {
+                    info.innerHTML = `<i class="fas fa-user-check text-success"></i> নাম: ${s.name}, ক্লাস: ${s.class}`;
+                    info.className = "text-success fw-bold mt-1 d-block";
+                    return true;
+                } else {
+                    info.innerHTML = `<i class="fas fa-times-circle text-danger"></i> ছাত্র পাওয়া যায়নি`;
+                    info.className = "text-danger fw-bold mt-1 d-block";
+                    return false;
+                }
+            },
+
+            takePayment: function(e) {
+                e.preventDefault();
+                const id = document.getElementById('pay-id').value;
+                const month = document.getElementById('pay-month').value;
+                const amount = document.getElementById('pay-amount').value;
+                
+                if(!this.verifyStudentForPayment(id)) return;
+
+                const student = this.data.students.find(s => s.id == id);
+                const payment = { month, amount, date: new Date().toLocaleDateString() };
+                
+                student.payments.push(payment);
+                this.data.payments.push({
+                    name: student.name, id: student.id, ...payment
+                });
+
+                this.save();
+                e.target.reset();
+                document.getElementById('pay-stu-info').innerText = '';
+                this.toast('পেমেন্ট গ্রহণ করা হয়েছে');
+            },
+
+            // --- Notices & Routines ---
+            postNotice: function(e) {
+                e.preventDefault();
+                const title = document.getElementById('notice-title').value;
+                const desc = document.getElementById('notice-desc').value;
+                this.data.notices.unshift({ title, desc, date: new Date().toLocaleDateString() });
+                this.save();
+                e.target.reset();
+                this.toast('নোটিশ পোস্ট হয়েছে');
+            },
+
+            postRoutine: function(e) {
+                e.preventDefault();
+                const title = document.getElementById('rout-title').value;
+                const cls = document.getElementById('rout-class').value;
+                const time = document.getElementById('rout-time').value;
+                this.data.routines.push({ title, class: cls, time });
+                this.save();
+                e.target.reset();
+                this.toast('রুটিন যুক্ত হয়েছে');
+            },
+
+            // --- Public Search ---
+            searchResult: function() {
+                const id = document.getElementById('search-student-id').value;
+                const student = this.data.students.find(s => s.id == id);
+                const display = document.getElementById('search-result-display');
+                
+                if(!student) {
+                    this.toast('শিক্ষার্থী পাওয়া যায়নি! আইডি চেক করুন।', 'error');
+                    display.classList.add('d-none');
+                    return;
+                }
+
+                // Generate Result HTML
+                let resultHtml = '';
+                const myResults = this.data.results.filter(r => r.class === student.class);
+                
+                if(myResults.length === 0) {
+                    resultHtml = '<div class="alert alert-warning text-center"><i class="fas fa-exclamation-circle"></i> এখনো কোন রেজাল্ট প্রকাশিত হয়নি।</div>';
+                } else {
+                    myResults.forEach(res => {
+                        const data = res.details.find(d => d.id == student.id);
+                        let tableRows = '';
+                        let totalObtained = 0;
+                        let totalMax = 0;
+
+                        if(data) {
+                            this.data.subjects.forEach(sub => {
+                                const got = parseFloat(data.marks[sub.name]) || 0;
+                                const full = sub.marks;
+                                totalObtained += got; totalMax += full;
+                                
+                                // Individual Grade
+                                const pct = (got/full)*100;
+                                const gObj = [...this.data.grading].sort((a,b)=>b.min-a.min).find(g=>pct>=g.min);
+                                const grd = gObj ? gObj.g : 'F';
+                                
+                                tableRows += `<tr>
+                                    <td>${sub.name}</td>
+                                    <td class="text-center fw-bold">${got}</td>
+                                    <td class="text-center">${full}</td>
+                                    <td class="text-center"><span class="grade-badge ${grd === 'F' ? 'g-F' : (grd.startsWith('A') ? 'g-A-plus' : 'g-B')}">${grd}</span></td>
+                                </tr>`;
+                            });
+                            
+                            // Calculate GPA (Overall)
+                            const totalPct = (totalObtained / totalMax) * 100;
+                            const finalGObj = [...this.data.grading].sort((a,b)=>b.min-a.min).find(g=>totalPct>=g.min);
+                            const finalGrade = finalGObj ? finalGObj.g : 'F';
+
+                            tableRows += `<tr class="table-active fw-bold">
+                                <td colspan="4" class="text-end">মোট নম্বর: ${totalObtained} / ${totalMax} &nbsp;|&nbsp; জিপিএ: ${finalGrade}</td>
+                            </tr>`;
+
+                        } else {
+                            tableRows = '<tr><td colspan="4" class="text-center text-danger">এই পরীক্ষায় অনুপস্থিত ছিলেন</td></tr>';
+                        }
+
+                        resultHtml += `
+                        <div class="card mb-4 border shadow-sm">
+                            <div class="card-header bg-primary text-white fw-bold">${res.examName} <span class="opacity-75 ms-2 small">(${res.date})</span></div>
+                            <div class="card-body p-0">
+                                <table class="table table-bordered mb-0 text-center align-middle">
+                                    <thead class="table-light"><tr><th>বিষয়</th><th>প্রাপ্ত</th><th>মোট</th><th>গ্রেড</th></tr></thead>
+                                    <tbody>${tableRows}</tbody>
+                                </table>
+                            </div>
+                        </div>`;
+                    });
+                }
+
+                // Payment History
+                let payHtml = '';
+                if(student.payments.length === 0) {
+                    payHtml = '<li class="list-group-item text-center text-muted">কোন পেমেন্ট রেকর্ড নেই।</li>';
+                } else {
+                    student.payments.forEach(p => {
+                        payHtml += `<li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span><i class="far fa-calendar-alt text-muted me-2"></i>${p.month}</span>
+                            <span class="badge bg-success">৳${p.amount}</span>
+                        </li>`;
+                    });
+                }
+
+                display.innerHTML = `
+                <div class="card shadow border-0 printable-area" id="print-area-result">
+                    <div class="result-header rounded-top">
+                        <h3 class="fw-bold">${this.data.schoolName}</h3>
+                        <p class="mb-0 opacity-75">সেশন: ${this.data.year} | রেজাল্ট ও পেমেন্ট কার্ড</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-4 border-bottom pb-3">
+                            <div class="col-md-6 mb-2"><strong>নাম:</strong> ${student.name}</div>
+                            <div class="col-md-6 mb-2 text-md-end"><strong>আইডি:</strong> ${student.id}</div>
+                            <div class="col-md-6"><strong>ক্লাস:</strong> ${student.class}</div>
+                            <div class="col-md-6 text-md-end"><strong>মোবাইল:</strong> ${student.mobile}</div>
+                        </div>
+                        
+                        <h5 class="fw-bold mb-3 text-primary"><i class="fas fa-file-alt me-2"></i>রেজাল্ট আর্কাইভ</h5>
+                        ${resultHtml}
+                        
+                        <h5 class="fw-bold mb-3 mt-4 text-success"><i class="fas fa-wallet me-2"></i>পেমেন্ট হিস্ট্রি</h5>
+                        <ul class="list-group list-group-flush border-top">${payHtml}</ul>
+
+                        <div class="mt-5 pt-3 text-center no-print border-top">
+                            <button onclick="window.print()" class="btn btn-dark btn-sm me-2"><i class="fas fa-print"></i> প্রিন্ট</button>
+                            <button onclick="app.downloadResult()" class="btn btn-primary btn-sm"><i class="fas fa-file-pdf"></i> PDF ডাউনলোড</button>
+                        </div>
+                    </div>
+                </div>`;
+                display.classList.remove('d-none');
+            },
+
+            // --- Utilities ---
+            populateClassSelect: function(id) {
+                const sel = document.getElementById(id);
+                if(sel) {
+                    sel.innerHTML = '<option value="" disabled selected>ক্লাস নির্বাচন করুন</option>' + 
+                        this.data.classes.map(c => `<option value="${c}">${c}</option>`).join('');
+                }
+            },
+
+            generateIDCard: function(id) {
+                const s = this.data.students.find(st => st.id == id);
+                if(!s) return;
+                
+                const html = `
+                <div class="id-card-wrapper printable-area" id="id-card-node">
+                    <div class="id-header">
+                        <h5 class="fw-bold text-white mb-0 mt-3">${this.data.schoolName}</h5>
+                        <small>Student ID Card - ${this.data.year}</small>
+                    </div>
+                    <img src="${s.photo}" class="id-photo" onerror="this.src='https://via.placeholder.com/150'">
+                    <div class="id-body">
+                        <h4 class="id-name">${s.name}</h4>
+                        <div class="id-role bg-light py-1 rounded">Class: ${s.class}</div>
+                        <div class="text-start mt-4 px-3">
+                            <div class="id-info-row"><span>ID No:</span> <strong>${s.id}</strong></div>
+                            <div class="id-info-row"><span>Guardian Mobile:</span> <strong>${s.mobile}</strong></div>
+                        </div>
+                    </div>
+                    <div class="id-footer bg-white py-2">
+                        <small class="text-muted">If found, please return to the school office.</small>
+                    </div>
+                </div>`;
+                document.getElementById('id-card-render-area').innerHTML = html;
+                new bootstrap.Modal(document.getElementById('idCardModal')).show();
+            },
+
+            downloadID: function() {
+                const element = document.getElementById('id-card-node');
+                if(!element) return;
+                const opt = {
+                    margin: 0,
+                    filename: `ID_Card_${element.querySelector('.id-name').innerText}.pdf`,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                };
+                html2pdf().set(opt).from(element).save();
+            },
+
+            downloadResult: function() {
+                const element = document.getElementById('print-area-result');
+                if(!element) return;
+                const opt = {
+                    margin: 0.5,
+                    filename: `Result_${new Date().toISOString().slice(0,10)}.pdf`,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+                };
+                html2pdf().set(opt).from(element).save();
+            },
+
+            updateUI: function() {
+                // 1. Dashboard Stats
+                document.getElementById('stat-students').innerText = this.data.students.length;
+                document.getElementById('stat-notices').innerText = this.data.notices.length;
+                document.getElementById('stat-results').innerText = this.data.results.length;
+                
+                let income = 0;
+                if(this.data.payments) {
+                    this.data.payments.forEach(p => income += parseInt(p.amount));
+                }
+                document.getElementById('stat-income').innerText = '৳' + income;
+
+                // 2. Student Table
+                const sList = document.getElementById('student-list-body');
+                if(this.data.students.length === 0) {
+                    sList.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-3">কোন ছাত্র নেই। ভর্তি করুন।</td></tr>';
+                } else {
+                    sList.innerHTML = this.data.students.map(s => `
+                        <tr>
+                            <td><img src="${s.photo}" class="rounded-circle border" style="width:35px;height:35px;object-fit:cover;" onerror="this.src='https://via.placeholder.com/30'"></td>
+                            <td><strong>${s.id}</strong></td>
+                            <td>${s.name}</td>
+                            <td><span class="badge bg-info text-dark">${s.class}</span></td>
+                            <td>${s.mobile}</td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-outline-primary" title="ID Card" onclick="app.generateIDCard(${s.id})"><i class="fas fa-id-card"></i></button>
+                                <button class="btn btn-sm btn-outline-danger" title="Delete" onclick="app.deleteItem('student', ${s.id})"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>`).join('');
+                }
+
+                // 3. Payment Log
+                const pLog = document.getElementById('payment-log-body');
+                if(this.data.payments.length === 0) {
+                    pLog.innerHTML = '<tr><td colspan="3" class="text-center text-muted">কোন লেনদেন নেই।</td></tr>';
+                } else {
+                    pLog.innerHTML = this.data.payments.slice().reverse().map(p => `
+                        <tr>
+                            <td><small>${p.name} <span class="text-muted">(${p.id})</span></small></td>
+                            <td><small>${p.month}</small></td>
+                            <td class="text-end fw-bold text-success">৳${p.amount}</td>
+                        </tr>`).join('');
+                }
+
+                // 4. Admin Notices & Routines
+                const nList = document.getElementById('admin-notice-list');
+                nList.innerHTML = this.data.notices.map((n,i) => 
+                    `<span class="badge bg-light text-dark border p-2 d-flex align-items-center">
+                        <i class="fas fa-sticky-note text-primary me-2"></i> ${n.title}
+                        <i class="fas fa-times text-danger ms-2" style="cursor:pointer" onclick="app.deleteItem('notice', ${i})"></i>
+                    </span>`
+                ).join('') || '<span class="text-muted small">কোন নোটিশ নেই</span>';
+                
+                const rList = document.getElementById('admin-routine-list');
+                rList.innerHTML = this.data.routines.map((r,i) => 
+                    `<div class="list-group-item d-flex justify-content-between align-items-center border-0 shadow-sm mb-2">
+                        <div>
+                            <strong class="text-dark">${r.title}</strong> 
+                            <span class="badge bg-info ms-1">${r.class}</span>
+                            <br><small class="text-muted"><i class="far fa-clock"></i> ${new Date(r.time).toLocaleString()}</small>
+                        </div>
+                        <button class="btn btn-sm text-danger" onclick="app.deleteItem('routine', ${i})"><i class="fas fa-trash"></i></button>
+                    </div>`
+                ).join('') || '<div class="text-center p-3 text-muted border bg-light rounded">কোন রুটিন নেই</div>';
+
+                // 5. Settings Class List & Inputs
+                document.getElementById('class-list').innerHTML = this.data.classes.map((c,i) => 
+                    `<span class="badge bg-secondary p-2 m-1">${c} <i class="fas fa-times ms-1 text-white-50" style="cursor:pointer" onclick="app.deleteItem('class', ${i})"></i></span>`
+                ).join('');
+                
+                // Update General Settings Inputs
+                document.getElementById('set-school-name').value = this.data.schoolName;
+                document.getElementById('set-year').value = this.data.year;
+
+                // UPDATE ALL SELECT DROPDOWNS DYNAMICALLY
+                this.populateClassSelect('res-class');
+                this.populateClassSelect('rout-class');
+                this.populateClassSelect('st-class');
+            },
+
+            // --- Unified Delete Action ---
+            deleteItem: function(type, indexOrId) {
+                if(!confirm('আপনি কি নিশ্চিত এটি ডিলিট করতে চান?')) return;
+                
+                if(type === 'student') {
+                    this.data.students = this.data.students.filter(s => s.id !== indexOrId);
+                } else if (type === 'notice') {
+                    this.data.notices.splice(indexOrId, 1);
+                } else if (type === 'routine') {
+                    this.data.routines.splice(indexOrId, 1);
+                } else if (type === 'class') {
+                    this.data.classes.splice(indexOrId, 1);
+                }
+                
+                this.save();
+                this.toast('ডিলিট করা হয়েছে', 'info');
+            },
+
+            addClass: function() {
+                const val = document.getElementById('new-class').value.trim();
+                if(val && !this.data.classes.includes(val)) {
+                    this.data.classes.push(val);
+                    this.save();
+                    document.getElementById('new-class').value = '';
+                    this.toast('নতুন ক্লাস যুক্ত হয়েছে');
+                } else if (this.data.classes.includes(val)) {
+                    this.toast('এই ক্লাসটি আগে থেকেই আছে', 'error');
+                }
+            },
+
+            hardReset: function() {
+                if(confirm("সতর্কতা! সব ডাটা মুছে যাবে। আপনি কি নিশ্চিত?")) {
+                    localStorage.removeItem('fiza_erp_v2_fixed');
+                    location.reload();
+                }
+            },
+
+            // --- Public Renderers ---
+            renderPublicNotices: function() {
+                const con = document.getElementById('public-notice-list');
+                if(this.data.notices.length === 0) {
+                    con.innerHTML = '<div class="col-md-8"><div class="alert alert-info text-center shadow-sm rounded-0">বর্তমানে কোন নোটিশ নেই।</div></div>';
+                } else {
+                    con.innerHTML = this.data.notices.map(n => `
+                        <div class="col-md-10 mb-3 animate-fade">
+                            <div class="card shadow-sm border-start border-4 border-primary h-100">
+                                <div class="card-body">
+                                    <h5 class="fw-bold text-primary mb-2">${n.title}</h5>
+                                    <p class="mb-2 text-secondary">${n.desc}</p>
+                                    <small class="text-muted"><i class="far fa-clock"></i> ${n.date}</small>
+                                </div>
+                            </div>
+                        </div>`).join('');
+                }
+            },
+
+            renderPublicRoutines: function() {
+                const con = document.getElementById('public-routine-list');
+                if(this.data.routines.length === 0) {
+                    con.innerHTML = '<div class="alert alert-info text-center shadow-sm rounded-0">বর্তমানে কোন রুটিন নেই।</div>';
+                } else {
+                    con.innerHTML = this.data.routines.map(r => `
+                        <div class="list-group-item border-0 shadow-sm mb-3 rounded animate-fade p-3">
+                            <div class="d-flex w-100 justify-content-between align-items-center mb-1">
+                                <h6 class="mb-0 fw-bold text-dark">${r.title}</h6>
+                                <span class="badge bg-primary rounded-pill">${r.class}</span>
+                            </div>
+                            <div class="text-danger small fw-bold"><i class="far fa-clock"></i> ${new Date(r.time).toLocaleString()}</div>
+                        </div>`).join('');
+                }
+            },
+
+            saveGeneralSettings: function() {
+                this.data.schoolName = document.getElementById('set-school-name').value;
+                this.data.year = document.getElementById('set-year').value;
+                this.save();
+                this.toast('সেটিংস সেভ হয়েছে');
+            }
+        };
+
+        // Initialize App
+        window.onload = function() {
+            app.init();
+            app.renderPublicNotices(); // Pre-load to ensure no blank screen
+            app.renderPublicRoutines();
+        };
+    </script>
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
