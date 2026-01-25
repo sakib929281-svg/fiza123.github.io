@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Fiza Private Home - Smart ERP Pro (Fixed)</title>
+    <title>Fiza Private Home - Smart ERP Pro (Time-Tracked)</title>
     
     <!-- Bootstrap 5.3 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -23,7 +23,6 @@
             --bg-sidebar: #2c3e50;
             --text-main: #5a5c69;
             --card-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            --glass-bg: rgba(255, 255, 255, 0.95);
             --transition: all 0.3s ease;
         }
 
@@ -98,6 +97,22 @@
         }
         .form-control:focus { border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.15); }
 
+        /* Helper for Time/Date display */
+        .timestamp-text {
+            font-size: 0.8rem;
+            color: #6c757d;
+            font-family: 'Poppins', sans-serif;
+            display: block;
+            margin-top: 2px;
+        }
+        .time-badge {
+            font-size: 0.75rem;
+            background: #e2e6ea;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #444;
+        }
+
         /* ID Card Design */
         .id-card-wrapper {
             width: 320px;
@@ -139,7 +154,7 @@
         .g-A-plus { background: #d4edda; color: #155724; }
         .g-A { background: #cce5ff; color: #004085; }
         .g-B { background: #fff3cd; color: #856404; }
-        .g-F { background: #f8d7da; color: #721c24; }
+        .g-F { background: #f8d7da; color: #721c24; } /* Fail Style */
 
         /* Loader */
         #loader-overlay {
@@ -190,7 +205,7 @@
                 <i class="fas fa-university fa-lg me-2"></i> 
                 <div class="d-flex flex-column">
                     <span style="line-height: 1.1;">Fiza Private Home</span>
-                    <small style="font-size: 0.65rem; font-weight: 300;">Smart ERP System v2.1</small>
+                    <small style="font-size: 0.65rem; font-weight: 300;">Smart ERP System v2.2 (Time-Track)</small>
                 </div>
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -352,7 +367,7 @@
                     <div class="text-center mb-4 mt-2">
                         <i class="fas fa-user-tie fa-3x text-white-50 mb-2"></i>
                         <h6 class="text-white fw-bold">ADMIN PANEL</h6>
-                        <small class="text-white-50">v2.1 Pro</small>
+                        <small class="text-white-50">v2.2 Time-Track</small>
                     </div>
                     <nav class="nav flex-column">
                         <a class="nav-link active bg-white bg-opacity-10 text-white" href="#" onclick="app.switchTab('dash', this)"><i class="fas fa-tachometer-alt"></i> ড্যাশবোর্ড</a>
@@ -456,6 +471,7 @@
                                                 <th>নাম</th>
                                                 <th>ক্লাস</th>
                                                 <th>অভিভাবক (মোবাইল)</th>
+                                                <th>ভর্তির তারিখ</th>
                                                 <th class="text-end">অ্যাকশন</th>
                                             </tr>
                                         </thead>
@@ -489,8 +505,8 @@
                                             </select>
                                         </div>
                                         <div class="col-md-3">
-                                            <label class="small">তারিখ</label>
-                                            <input type="date" id="res-date" class="form-control" required>
+                                            <label class="small">প্রকাশের তারিখ ও সময়</label>
+                                            <input type="datetime-local" id="res-date" class="form-control" required>
                                         </div>
                                         <div class="col-md-2 d-flex align-items-end">
                                             <button type="submit" class="btn btn-primary w-100 fw-bold">শুরু করুন</button>
@@ -504,7 +520,7 @@
                         <div id="result-entry-area" class="d-none">
                             <div class="card shadow-sm border-primary border-0">
                                 <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center py-3">
-                                    <h6 class="m-0"><i class="fas fa-edit me-2"></i>পদক্ষেপ ২: নম্বর এন্ট্রি</h6>
+                                    <h6 class="m-0"><i class="fas fa-edit me-2"></i>পদক্ষেপ ২: নম্বর এন্ট্রি (Auto Grading)</h6>
                                     <button class="btn btn-sm btn-light text-primary fw-bold" onclick="app.publishResult()"><i class="fas fa-save me-1"></i> সেভ ও পাবলিশ</button>
                                 </div>
                                 <div class="card-body p-0">
@@ -570,6 +586,7 @@
                                                     <tr>
                                                         <th>নাম (ID)</th>
                                                         <th>মাস</th>
+                                                        <th>তারিখ ও সময়</th>
                                                         <th class="text-end">পরিমাণ</th>
                                                     </tr>
                                                 </thead>
@@ -774,27 +791,51 @@
                 payments: []
             },
             
+            getCurrentFormattedTime: function() {
+                return new Date().toLocaleString('en-GB', {
+                    day: '2-digit', month: 'short', year: 'numeric',
+                    hour: '2-digit', minute: '2-digit', hour12: true
+                });
+            },
+
+            // --- Helper for Grading Logic (Applied to both Admin and Visitor) ---
+            calculateGrade: function(marksObtained, totalMarks) {
+                // Requirement: If total is 100 and marks < 33 -> FAIL
+                if (totalMarks === 100 && marksObtained < 33) return 'F';
+                // Requirement: If total is 50 and marks < 15 -> FAIL (Specific User Request)
+                if (totalMarks === 50 && marksObtained < 15) return 'F';
+
+                // Standard Calculation if Passed
+                const percentage = (marksObtained / totalMarks) * 100;
+                if (percentage >= 80) return 'A+';
+                if (percentage >= 70) return 'A';
+                if (percentage >= 60) return 'A-';
+                if (percentage >= 50) return 'B';
+                if (percentage >= 40) return 'C';
+                if (percentage >= 33) return 'D';
+                return 'F';
+            },
+
             // --- Initialization ---
             init: function() {
-                const saved = localStorage.getItem('fiza_erp_v2_fixed');
+                const saved = localStorage.getItem('fiza_erp_v2_time_fixed');
                 if(saved) {
                     try {
                         const parsed = JSON.parse(saved);
-                        // Merge to ensure structure exists even if old data
                         this.data = { ...this.data, ...parsed };
-                        // Ensure arrays exist
                         if(!this.data.students) this.data.students = [];
                         if(!this.data.results) this.data.results = [];
+                        if(!this.data.payments) this.data.payments = []; 
                     } catch(e) { console.error("Data load error", e); }
                 }
-                
                 this.updateUI();
-                // Set default date
-                document.getElementById('res-date').valueAsDate = new Date();
+                const now = new Date();
+                now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+                document.getElementById('res-date').value = now.toISOString().slice(0,16);
             },
 
             save: function() {
-                localStorage.setItem('fiza_erp_v2_fixed', JSON.stringify(this.data));
+                localStorage.setItem('fiza_erp_v2_time_fixed', JSON.stringify(this.data));
                 this.updateUI();
             },
 
@@ -804,11 +845,9 @@
                 document.getElementById('view-' + viewId).classList.add('active');
                 window.scrollTo(0,0);
                 
-                // Close mobile navbar
                 const nav = document.getElementById('navbarNav');
                 if(nav.classList.contains('show')) new bootstrap.Collapse(nav).hide();
 
-                // Render public content when navigating
                 if(viewId === 'notice') this.renderPublicNotices();
                 if(viewId === 'routine') this.renderPublicRoutines();
             },
@@ -865,7 +904,6 @@
                 if (input.files && input.files[0]) {
                     const reader = new FileReader();
                     reader.onload = (e) => {
-                        // Compression logic via Canvas
                         const img = new Image();
                         img.src = e.target.result;
                         img.onload = () => {
@@ -873,7 +911,7 @@
                             const ctx = canvas.getContext('2d');
                             canvas.width = 300; canvas.height = 300;
                             ctx.drawImage(img, 0, 0, 300, 300);
-                            this.currentImage = canvas.toDataURL('image/jpeg', 0.6); // Quality 0.6
+                            this.currentImage = canvas.toDataURL('image/jpeg', 0.6);
                             document.getElementById('prev-img').src = this.currentImage;
                         }
                     }
@@ -892,7 +930,6 @@
             saveStudent: function(e) {
                 e.preventDefault();
                 this.showLoader(true);
-                
                 setTimeout(() => {
                     const name = document.getElementById('st-name').value;
                     const cls = document.getElementById('st-class').value;
@@ -903,7 +940,8 @@
                     const student = {
                         id, name, class: cls, mobile,
                         photo: this.currentImage || `https://ui-avatars.com/api/?name=${name}&background=random&size=128`,
-                        payments: []
+                        payments: [],
+                        admissionDate: this.getCurrentFormattedTime()
                     };
                     this.data.students.push(student);
                     this.save();
@@ -948,11 +986,13 @@
                 table.innerHTML = html;
             },
 
+            // UPDATED LOGIC FOR ADMIN SIDE (Realtime Calculation)
             calcRow: function(input) {
                 const row = input.closest('tr');
                 let total = 0;
                 let maxTotal = 0;
                 let valid = true;
+                let hasFailedSubject = false; // Flag to check if any subject fails
 
                 row.querySelectorAll('.mark-input').forEach(inp => {
                     const val = parseFloat(inp.value);
@@ -961,29 +1001,61 @@
                     
                     if(!isNaN(val)) {
                         if(val > max) { inp.classList.add('is-invalid'); valid = false; }
-                        else { inp.classList.remove('is-invalid'); total += val; }
+                        else { 
+                            inp.classList.remove('is-invalid'); 
+                            total += val;
+                            
+                            // Check individual subject fail condition
+                            if ((max === 100 && val < 33) || (max === 50 && val < 15)) {
+                                inp.classList.add('is-invalid'); // Visual cue for fail subject
+                                inp.style.borderColor = "#dc3545";
+                                hasFailedSubject = true;
+                            } else {
+                                inp.style.borderColor = "";
+                            }
+                        }
+                    } else {
+                        inp.style.borderColor = ""; // Reset if empty
                     }
                 });
 
                 row.querySelector('.total-cell').innerText = total;
                 
-                if(valid && maxTotal > 0) {
-                    const pct = (total / maxTotal) * 100;
-                    const sortedGrading = [...this.data.grading].sort((a,b) => b.min - a.min);
-                    const gradeObj = sortedGrading.find(g => pct >= g.min);
-                    const grade = gradeObj ? gradeObj.g : 'F';
-                    const cell = row.querySelector('.grade-cell');
+                // Determine Grade
+                let grade = '-';
+                const cell = row.querySelector('.grade-cell');
+                
+                if (valid && maxTotal > 0) {
+                    // If any subject failed, Grade is F
+                    if (hasFailedSubject) {
+                        grade = 'F';
+                    } else {
+                        // Calculate Percentage based on Total
+                        const pct = (total / maxTotal) * 100;
+                        const sortedGrading = [...this.data.grading].sort((a,b) => b.min - a.min);
+                        const gradeObj = sortedGrading.find(g => pct >= g.min);
+                        grade = gradeObj ? gradeObj.g : 'F';
+                    }
+                    
                     cell.innerText = grade;
-                    // Color coding
                     cell.className = 'grade-cell grade-badge ' + (grade === 'F' ? 'g-F' : (grade.startsWith('A') ? 'g-A-plus' : 'g-B'));
+                } else {
+                    cell.innerText = '-';
+                    cell.className = 'grade-cell';
                 }
             },
 
             publishResult: function() {
                 const name = document.getElementById('res-exam-name').value;
-                const date = document.getElementById('res-date').value;
+                const dateInput = document.getElementById('res-date').value;
                 const cls = document.getElementById('res-class').value;
                 
+                const d = new Date(dateInput);
+                const formattedDate = d.toLocaleString('en-GB', {
+                    day: '2-digit', month: 'short', year: 'numeric',
+                    hour: '2-digit', minute: '2-digit'
+                });
+
                 const rows = document.querySelectorAll('#result-mark-table tbody tr');
                 const details = [];
                 
@@ -996,7 +1068,7 @@
                     details.push({ id: sid, marks });
                 });
 
-                this.data.results.push({ examName: name, date, class: cls, details });
+                this.data.results.push({ examName: name, date: formattedDate, class: cls, details });
                 this.save();
                 document.getElementById('result-entry-area').classList.add('d-none');
                 document.getElementById('res-exam-name').value = '';
@@ -1027,7 +1099,9 @@
                 if(!this.verifyStudentForPayment(id)) return;
 
                 const student = this.data.students.find(s => s.id == id);
-                const payment = { month, amount, date: new Date().toLocaleDateString() };
+                const timestamp = this.getCurrentFormattedTime();
+                
+                const payment = { month, amount, date: timestamp };
                 
                 student.payments.push(payment);
                 this.data.payments.push({
@@ -1045,7 +1119,9 @@
                 e.preventDefault();
                 const title = document.getElementById('notice-title').value;
                 const desc = document.getElementById('notice-desc').value;
-                this.data.notices.unshift({ title, desc, date: new Date().toLocaleDateString() });
+                const timestamp = this.getCurrentFormattedTime();
+                
+                this.data.notices.unshift({ title, desc, date: timestamp });
                 this.save();
                 e.target.reset();
                 this.toast('নোটিশ পোস্ট হয়েছে');
@@ -1055,14 +1131,21 @@
                 e.preventDefault();
                 const title = document.getElementById('rout-title').value;
                 const cls = document.getElementById('rout-class').value;
-                const time = document.getElementById('rout-time').value;
-                this.data.routines.push({ title, class: cls, time });
+                const timeInput = document.getElementById('rout-time').value;
+                
+                const d = new Date(timeInput);
+                const formattedTime = d.toLocaleString('en-GB', {
+                    day: '2-digit', month: 'short', year: 'numeric',
+                    hour: '2-digit', minute: '2-digit'
+                });
+
+                this.data.routines.push({ title, class: cls, time: formattedTime });
                 this.save();
                 e.target.reset();
                 this.toast('রুটিন যুক্ত হয়েছে');
             },
 
-            // --- Public Search ---
+            // --- Public Search (UPDATED LOGIC) ---
             searchResult: function() {
                 const id = document.getElementById('search-student-id').value;
                 const student = this.data.students.find(s => s.id == id);
@@ -1074,7 +1157,6 @@
                     return;
                 }
 
-                // Generate Result HTML
                 let resultHtml = '';
                 const myResults = this.data.results.filter(r => r.class === student.class);
                 
@@ -1086,6 +1168,7 @@
                         let tableRows = '';
                         let totalObtained = 0;
                         let totalMax = 0;
+                        let hasAnyFail = false; // Flag for final grade
 
                         if(data) {
                             this.data.subjects.forEach(sub => {
@@ -1093,10 +1176,11 @@
                                 const full = sub.marks;
                                 totalObtained += got; totalMax += full;
                                 
-                                // Individual Grade
-                                const pct = (got/full)*100;
-                                const gObj = [...this.data.grading].sort((a,b)=>b.min-a.min).find(g=>pct>=g.min);
-                                const grd = gObj ? gObj.g : 'F';
+                                // Calculate Grade with the specific rule
+                                const grd = this.calculateGrade(got, full);
+                                
+                                // Check if this specific subject failed
+                                if (grd === 'F') hasAnyFail = true;
                                 
                                 tableRows += `<tr>
                                     <td>${sub.name}</td>
@@ -1106,13 +1190,18 @@
                                 </tr>`;
                             });
                             
-                            // Calculate GPA (Overall)
-                            const totalPct = (totalObtained / totalMax) * 100;
-                            const finalGObj = [...this.data.grading].sort((a,b)=>b.min-a.min).find(g=>totalPct>=g.min);
-                            const finalGrade = finalGObj ? finalGObj.g : 'F';
+                            // Final GPA Calculation
+                            let finalGrade = 'F';
+                            if (!hasAnyFail) {
+                                // Only calculate percentage if no individual subject failed
+                                const totalPct = (totalObtained / totalMax) * 100;
+                                const sortedGrading = [...this.data.grading].sort((a,b)=>b.min-a.min);
+                                const finalGObj = sortedGrading.find(g=>totalPct>=g.min);
+                                finalGrade = finalGObj ? finalGObj.g : 'F';
+                            }
 
                             tableRows += `<tr class="table-active fw-bold">
-                                <td colspan="4" class="text-end">মোট নম্বর: ${totalObtained} / ${totalMax} &nbsp;|&nbsp; জিপিএ: ${finalGrade}</td>
+                                <td colspan="4" class="text-end">মোট নম্বর: ${totalObtained} / ${totalMax} &nbsp;|&nbsp; জিপিএ: <span class="${finalGrade === 'F' ? 'text-danger' : 'text-success'}">${finalGrade}</span></td>
                             </tr>`;
 
                         } else {
@@ -1121,7 +1210,10 @@
 
                         resultHtml += `
                         <div class="card mb-4 border shadow-sm">
-                            <div class="card-header bg-primary text-white fw-bold">${res.examName} <span class="opacity-75 ms-2 small">(${res.date})</span></div>
+                            <div class="card-header bg-primary text-white fw-bold d-flex justify-content-between">
+                                <span>${res.examName}</span>
+                                <span class="small opacity-75"><i class="far fa-clock"></i> প্রকাশ: ${res.date}</span>
+                            </div>
                             <div class="card-body p-0">
                                 <table class="table table-bordered mb-0 text-center align-middle">
                                     <thead class="table-light"><tr><th>বিষয়</th><th>প্রাপ্ত</th><th>মোট</th><th>গ্রেড</th></tr></thead>
@@ -1132,14 +1224,16 @@
                     });
                 }
 
-                // Payment History
                 let payHtml = '';
                 if(student.payments.length === 0) {
                     payHtml = '<li class="list-group-item text-center text-muted">কোন পেমেন্ট রেকর্ড নেই।</li>';
                 } else {
                     student.payments.forEach(p => {
                         payHtml += `<li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span><i class="far fa-calendar-alt text-muted me-2"></i>${p.month}</span>
+                            <div>
+                                <span><i class="far fa-calendar-alt text-muted me-2"></i>${p.month}</span>
+                                <span class="timestamp-text ms-2"><i class="far fa-clock"></i> ${p.date}</span>
+                            </div>
                             <span class="badge bg-success">৳${p.amount}</span>
                         </li>`;
                     });
@@ -1155,8 +1249,11 @@
                         <div class="row mb-4 border-bottom pb-3">
                             <div class="col-md-6 mb-2"><strong>নাম:</strong> ${student.name}</div>
                             <div class="col-md-6 mb-2 text-md-end"><strong>আইডি:</strong> ${student.id}</div>
-                            <div class="col-md-6"><strong>ক্লাস:</strong> ${student.class}</div>
-                            <div class="col-md-6 text-md-end"><strong>মোবাইল:</strong> ${student.mobile}</div>
+                            <div class="col-md-6 mb-2"><strong>ক্লাস:</strong> ${student.class}</div>
+                            <div class="col-md-6 mb-2 text-md-end"><strong>মোবাইল:</strong> ${student.mobile}</div>
+                            <div class="col-12 mt-2 text-muted small text-end">
+                                <i class="fas fa-user-plus"></i> ভর্তির তারিখ: ${student.admissionDate}
+                            </div>
                         </div>
                         
                         <h5 class="fw-bold mb-3 text-primary"><i class="fas fa-file-alt me-2"></i>রেজাল্ট আর্কাইভ</h5>
@@ -1200,6 +1297,7 @@
                         <div class="text-start mt-4 px-3">
                             <div class="id-info-row"><span>ID No:</span> <strong>${s.id}</strong></div>
                             <div class="id-info-row"><span>Guardian Mobile:</span> <strong>${s.mobile}</strong></div>
+                            <div class="id-info-row" style="font-size: 0.75rem; color:#888; margin-top:4px;">Issued: ${s.admissionDate.split(',')[0]}</div>
                         </div>
                     </div>
                     <div class="id-footer bg-white py-2">
@@ -1237,7 +1335,6 @@
             },
 
             updateUI: function() {
-                // 1. Dashboard Stats
                 document.getElementById('stat-students').innerText = this.data.students.length;
                 document.getElementById('stat-notices').innerText = this.data.notices.length;
                 document.getElementById('stat-results').innerText = this.data.results.length;
@@ -1248,10 +1345,9 @@
                 }
                 document.getElementById('stat-income').innerText = '৳' + income;
 
-                // 2. Student Table
                 const sList = document.getElementById('student-list-body');
                 if(this.data.students.length === 0) {
-                    sList.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-3">কোন ছাত্র নেই। ভর্তি করুন।</td></tr>';
+                    sList.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-3">কোন ছাত্র নেই। ভর্তি করুন।</td></tr>';
                 } else {
                     sList.innerHTML = this.data.students.map(s => `
                         <tr>
@@ -1260,6 +1356,7 @@
                             <td>${s.name}</td>
                             <td><span class="badge bg-info text-dark">${s.class}</span></td>
                             <td>${s.mobile}</td>
+                            <td><small class="text-muted">${s.admissionDate || '-'}</small></td>
                             <td class="text-end">
                                 <button class="btn btn-sm btn-outline-primary" title="ID Card" onclick="app.generateIDCard(${s.id})"><i class="fas fa-id-card"></i></button>
                                 <button class="btn btn-sm btn-outline-danger" title="Delete" onclick="app.deleteItem('student', ${s.id})"><i class="fas fa-trash"></i></button>
@@ -1267,26 +1364,28 @@
                         </tr>`).join('');
                 }
 
-                // 3. Payment Log
                 const pLog = document.getElementById('payment-log-body');
                 if(this.data.payments.length === 0) {
-                    pLog.innerHTML = '<tr><td colspan="3" class="text-center text-muted">কোন লেনদেন নেই।</td></tr>';
+                    pLog.innerHTML = '<tr><td colspan="4" class="text-center text-muted">কোন লেনদেন নেই।</td></tr>';
                 } else {
                     pLog.innerHTML = this.data.payments.slice().reverse().map(p => `
                         <tr>
                             <td><small>${p.name} <span class="text-muted">(${p.id})</span></small></td>
                             <td><small>${p.month}</small></td>
+                            <td><small class="text-muted">${p.date}</small></td>
                             <td class="text-end fw-bold text-success">৳${p.amount}</td>
                         </tr>`).join('');
                 }
 
-                // 4. Admin Notices & Routines
                 const nList = document.getElementById('admin-notice-list');
                 nList.innerHTML = this.data.notices.map((n,i) => 
-                    `<span class="badge bg-light text-dark border p-2 d-flex align-items-center">
-                        <i class="fas fa-sticky-note text-primary me-2"></i> ${n.title}
-                        <i class="fas fa-times text-danger ms-2" style="cursor:pointer" onclick="app.deleteItem('notice', ${i})"></i>
-                    </span>`
+                    `<div class="badge bg-light text-dark border p-2 d-flex flex-column align-items-start" style="min-width: 200px;">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-sticky-note text-primary me-2"></i> ${n.title}
+                        </div>
+                        <small class="timestamp-text mt-1 w-100 text-start"><i class="far fa-clock"></i> ${n.date}</small>
+                        <i class="fas fa-times text-danger ms-auto mt-1" style="cursor:pointer; font-size:0.8rem;" onclick="app.deleteItem('notice', ${i})"></i>
+                    </div>`
                 ).join('') || '<span class="text-muted small">কোন নোটিশ নেই</span>';
                 
                 const rList = document.getElementById('admin-routine-list');
@@ -1295,28 +1394,24 @@
                         <div>
                             <strong class="text-dark">${r.title}</strong> 
                             <span class="badge bg-info ms-1">${r.class}</span>
-                            <br><small class="text-muted"><i class="far fa-clock"></i> ${new Date(r.time).toLocaleString()}</small>
+                            <div class="timestamp-text"><i class="far fa-clock"></i> ${r.time}</div>
                         </div>
                         <button class="btn btn-sm text-danger" onclick="app.deleteItem('routine', ${i})"><i class="fas fa-trash"></i></button>
                     </div>`
                 ).join('') || '<div class="text-center p-3 text-muted border bg-light rounded">কোন রুটিন নেই</div>';
 
-                // 5. Settings Class List & Inputs
                 document.getElementById('class-list').innerHTML = this.data.classes.map((c,i) => 
                     `<span class="badge bg-secondary p-2 m-1">${c} <i class="fas fa-times ms-1 text-white-50" style="cursor:pointer" onclick="app.deleteItem('class', ${i})"></i></span>`
                 ).join('');
                 
-                // Update General Settings Inputs
                 document.getElementById('set-school-name').value = this.data.schoolName;
                 document.getElementById('set-year').value = this.data.year;
 
-                // UPDATE ALL SELECT DROPDOWNS DYNAMICALLY
                 this.populateClassSelect('res-class');
                 this.populateClassSelect('rout-class');
                 this.populateClassSelect('st-class');
             },
 
-            // --- Unified Delete Action ---
             deleteItem: function(type, indexOrId) {
                 if(!confirm('আপনি কি নিশ্চিত এটি ডিলিট করতে চান?')) return;
                 
@@ -1348,7 +1443,7 @@
 
             hardReset: function() {
                 if(confirm("সতর্কতা! সব ডাটা মুছে যাবে। আপনি কি নিশ্চিত?")) {
-                    localStorage.removeItem('fiza_erp_v2_fixed');
+                    localStorage.removeItem('fiza_erp_v2_time_fixed');
                     location.reload();
                 }
             },
@@ -1365,7 +1460,7 @@
                                 <div class="card-body">
                                     <h5 class="fw-bold text-primary mb-2">${n.title}</h5>
                                     <p class="mb-2 text-secondary">${n.desc}</p>
-                                    <small class="text-muted"><i class="far fa-clock"></i> ${n.date}</small>
+                                    <div class="timestamp-text"><i class="far fa-clock"></i> ${n.date}</div>
                                 </div>
                             </div>
                         </div>`).join('');
@@ -1383,7 +1478,7 @@
                                 <h6 class="mb-0 fw-bold text-dark">${r.title}</h6>
                                 <span class="badge bg-primary rounded-pill">${r.class}</span>
                             </div>
-                            <div class="text-danger small fw-bold"><i class="far fa-clock"></i> ${new Date(r.time).toLocaleString()}</div>
+                            <div class="text-danger small fw-bold"><i class="far fa-clock"></i> ${r.time}</div>
                         </div>`).join('');
                 }
             },
@@ -1396,10 +1491,9 @@
             }
         };
 
-        // Initialize App
         window.onload = function() {
             app.init();
-            app.renderPublicNotices(); // Pre-load to ensure no blank screen
+            app.renderPublicNotices();
             app.renderPublicRoutines();
         };
     </script>
