@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Fiza Private Home - Smart ERP Pro (Time-Tracked)</title>
+    <title>Fiza Private Home - Smart ERP Pro (Manual Date)</title>
     
     <!-- Bootstrap 5.3 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -105,13 +105,6 @@
             display: block;
             margin-top: 2px;
         }
-        .time-badge {
-            font-size: 0.75rem;
-            background: #e2e6ea;
-            padding: 2px 6px;
-            border-radius: 4px;
-            color: #444;
-        }
 
         /* ID Card Design */
         .id-card-wrapper {
@@ -154,7 +147,7 @@
         .g-A-plus { background: #d4edda; color: #155724; }
         .g-A { background: #cce5ff; color: #004085; }
         .g-B { background: #fff3cd; color: #856404; }
-        .g-F { background: #f8d7da; color: #721c24; } /* Fail Style */
+        .g-F { background: #f8d7da; color: #721c24; }
 
         /* Loader */
         #loader-overlay {
@@ -205,7 +198,7 @@
                 <i class="fas fa-university fa-lg me-2"></i> 
                 <div class="d-flex flex-column">
                     <span style="line-height: 1.1;">Fiza Private Home</span>
-                    <small style="font-size: 0.65rem; font-weight: 300;">Smart ERP System v2.2 (Time-Track)</small>
+                    <small style="font-size: 0.65rem; font-weight: 300;">Smart ERP System v2.3 (Manual Date)</small>
                 </div>
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -367,7 +360,7 @@
                     <div class="text-center mb-4 mt-2">
                         <i class="fas fa-user-tie fa-3x text-white-50 mb-2"></i>
                         <h6 class="text-white fw-bold">ADMIN PANEL</h6>
-                        <small class="text-white-50">v2.2 Time-Track</small>
+                        <small class="text-white-50">v2.3 Manual Date</small>
                     </div>
                     <nav class="nav flex-column">
                         <a class="nav-link active bg-white bg-opacity-10 text-white" href="#" onclick="app.switchTab('dash', this)"><i class="fas fa-tachometer-alt"></i> ড্যাশবোর্ড</a>
@@ -491,14 +484,14 @@
                         <!-- Step 1 -->
                         <div class="card shadow-sm mb-4 border-0">
                             <div class="card-body">
-                                <h6 class="fw-bold text-primary mb-3"><i class="fas fa-cog me-2"></i>পদক্ষেপ ১: পরীক্ষার তথ্য</h6>
+                                <h6 class="fw-bold text-primary mb-3"><i class="fas fa-cog me-2"></i>পদক্ষেপ ১: পরীক্ষার তথ্য ও তারিখ (ম্যানুয়াল)</h6>
                                 <form onsubmit="app.initResultEntry(event)">
                                     <div class="row g-3">
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <label class="small">পরীক্ষার নাম</label>
                                             <input type="text" id="res-exam-name" class="form-control" placeholder="যেমন: মাসিক টেস্ট ১" required>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <label class="small">ক্লাস</label>
                                             <select id="res-class" class="form-select" required>
                                                 <!-- JS Populate -->
@@ -508,7 +501,7 @@
                                             <label class="small">প্রকাশের তারিখ ও সময়</label>
                                             <input type="datetime-local" id="res-date" class="form-control" required>
                                         </div>
-                                        <div class="col-md-2 d-flex align-items-end">
+                                        <div class="col-md-4 d-flex align-items-end">
                                             <button type="submit" class="btn btn-primary w-100 fw-bold">শুরু করুন</button>
                                         </div>
                                     </div>
@@ -520,7 +513,7 @@
                         <div id="result-entry-area" class="d-none">
                             <div class="card shadow-sm border-primary border-0">
                                 <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center py-3">
-                                    <h6 class="m-0"><i class="fas fa-edit me-2"></i>পদক্ষেপ ২: নম্বর এন্ট্রি (Auto Grading)</h6>
+                                    <h6 class="m-0"><i class="fas fa-edit me-2"></i>পদক্ষেপ ২: নম্বর এন্ট্রি</h6>
                                     <button class="btn btn-sm btn-light text-primary fw-bold" onclick="app.publishResult()"><i class="fas fa-save me-1"></i> সেভ ও পাবলিশ</button>
                                 </div>
                                 <div class="card-body p-0">
@@ -541,7 +534,7 @@
                             <div class="col-md-5">
                                 <div class="card shadow-sm mb-4 border-0 h-100">
                                     <div class="card-body">
-                                        <h6 class="fw-bold text-success mb-3 border-bottom pb-2"><i class="fas fa-cash-register me-2"></i>নতুন পেমেন্ট নিন</h6>
+                                        <h6 class="fw-bold text-success mb-3 border-bottom pb-2"><i class="fas fa-cash-register me-2"></i>নতুন পেমেন্ট নিন (ম্যানুয়াল ডেট)</h6>
                                         <form onsubmit="app.takePayment(event)">
                                             <div class="mb-3">
                                                 <label>শিক্ষার্থী আইডি</label>
@@ -571,6 +564,11 @@
                                                     <input type="number" id="pay-amount" class="form-control" placeholder="0" required>
                                                 </div>
                                             </div>
+                                            <!-- NEW: Manual Date Input for Payment -->
+                                            <div class="mb-3">
+                                                <label>জমা দেওয়ার তারিখ (Date)</label>
+                                                <input type="date" id="pay-date" class="form-control" required>
+                                            </div>
                                             <button type="submit" class="btn btn-success w-100 fw-bold">জমা দিন</button>
                                         </form>
                                     </div>
@@ -586,7 +584,7 @@
                                                     <tr>
                                                         <th>নাম (ID)</th>
                                                         <th>মাস</th>
-                                                        <th>তারিখ ও সময়</th>
+                                                        <th>জমার তারিখ</th>
                                                         <th class="text-end">পরিমাণ</th>
                                                     </tr>
                                                 </thead>
@@ -604,7 +602,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-4">
                                 <div class="card shadow-sm h-100 border-0">
-                                    <div class="card-header bg-white fw-bold text-primary border-0 pb-0">নোটিশ পোস্ট করুন</div>
+                                    <div class="card-header bg-white fw-bold text-primary border-0 pb-0">নোটিশ পোস্ট করুন (ম্যানুয়াল ডেট)</div>
                                     <div class="card-body">
                                         <form onsubmit="app.postNotice(event)">
                                             <div class="mb-3">
@@ -612,8 +610,12 @@
                                                 <input type="text" id="notice-title" class="form-control" required>
                                             </div>
                                             <div class="mb-3">
+                                                <label>নোটিশের তারিখ</label>
+                                                <input type="date" id="notice-date" class="form-control" required>
+                                            </div>
+                                            <div class="mb-3">
                                                 <label>বিস্তারিত</label>
-                                                <textarea id="notice-desc" class="form-control" rows="4" required></textarea>
+                                                <textarea id="notice-desc" class="form-control" rows="3" required></textarea>
                                             </div>
                                             <button class="btn btn-primary w-100"><i class="fas fa-paper-plane me-2"></i>পোস্ট করুন</button>
                                         </form>
@@ -622,7 +624,7 @@
                             </div>
                             <div class="col-md-6 mb-4">
                                 <div class="card shadow-sm h-100 border-0">
-                                    <div class="card-header bg-white fw-bold text-info border-0 pb-0">রুটিন যুক্ত করুন</div>
+                                    <div class="card-header bg-white fw-bold text-info border-0 pb-0">রুটিন যুক্ত করুন (ম্যানুয়াল ডেট)</div>
                                     <div class="card-body">
                                         <form onsubmit="app.postRoutine(event)">
                                             <div class="mb-2">
@@ -714,7 +716,7 @@
         <div class="modal-dialog">
             <div class="modal-content border-0 shadow-lg">
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title fw-bold">নতুন শিক্ষার্থী ভর্তি</h5>
+                    <h5 class="modal-title fw-bold">নতুন শিক্ষার্থী ভর্তি (ম্যানুয়াল ডেট)</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
@@ -737,6 +739,11 @@
                             <div class="col-6">
                                 <label>মোবাইল (অভিভাবক)</label>
                                 <input type="text" id="st-mobile" class="form-control" required>
+                            </div>
+                            <!-- NEW: Manual Admission Date -->
+                            <div class="col-12 mt-2">
+                                <label>ভর্তির তারিখ (Admission Date)</label>
+                                <input type="date" id="st-date" class="form-control" required>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary w-100 mt-3 fw-bold">সেভ করুন</button>
@@ -791,21 +798,21 @@
                 payments: []
             },
             
-            getCurrentFormattedTime: function() {
-                return new Date().toLocaleString('en-GB', {
+            // Helper to format date nicely for display
+            getFormattedDate: function(dateString) {
+                if(!dateString) return '';
+                const d = new Date(dateString);
+                return d.toLocaleString('en-GB', {
                     day: '2-digit', month: 'short', year: 'numeric',
                     hour: '2-digit', minute: '2-digit', hour12: true
                 });
             },
 
-            // --- Helper for Grading Logic (Applied to both Admin and Visitor) ---
+            // Helper for Grading Logic
             calculateGrade: function(marksObtained, totalMarks) {
-                // Requirement: If total is 100 and marks < 33 -> FAIL
                 if (totalMarks === 100 && marksObtained < 33) return 'F';
-                // Requirement: If total is 50 and marks < 15 -> FAIL (Specific User Request)
                 if (totalMarks === 50 && marksObtained < 15) return 'F';
 
-                // Standard Calculation if Passed
                 const percentage = (marksObtained / totalMarks) * 100;
                 if (percentage >= 80) return 'A+';
                 if (percentage >= 70) return 'A';
@@ -818,7 +825,7 @@
 
             // --- Initialization ---
             init: function() {
-                const saved = localStorage.getItem('fiza_erp_v2_time_fixed');
+                const saved = localStorage.getItem('fiza_erp_v23_manual_date');
                 if(saved) {
                     try {
                         const parsed = JSON.parse(saved);
@@ -829,13 +836,22 @@
                     } catch(e) { console.error("Data load error", e); }
                 }
                 this.updateUI();
+                
+                // Set default dates to today for convenience (but user can change)
+                const today = new Date().toISOString().split('T')[0];
                 const now = new Date();
                 now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-                document.getElementById('res-date').value = now.toISOString().slice(0,16);
+                const nowString = now.toISOString().slice(0,16);
+
+                if(document.getElementById('st-date')) document.getElementById('st-date').value = today;
+                if(document.getElementById('pay-date')) document.getElementById('pay-date').value = today;
+                if(document.getElementById('notice-date')) document.getElementById('notice-date').value = today;
+                if(document.getElementById('res-date')) document.getElementById('res-date').value = nowString;
+                if(document.getElementById('rout-time')) document.getElementById('rout-time').value = nowString;
             },
 
             save: function() {
-                localStorage.setItem('fiza_erp_v2_time_fixed', JSON.stringify(this.data));
+                localStorage.setItem('fiza_erp_v23_manual_date', JSON.stringify(this.data));
                 this.updateUI();
             },
 
@@ -924,6 +940,8 @@
                 document.getElementById('prev-img').src = "https://via.placeholder.com/150";
                 this.currentImage = null;
                 this.populateClassSelect('st-class');
+                // Set default date to today
+                document.getElementById('st-date').value = new Date().toISOString().split('T')[0];
                 new bootstrap.Modal(document.getElementById('studentModal')).show();
             },
 
@@ -934,6 +952,9 @@
                     const name = document.getElementById('st-name').value;
                     const cls = document.getElementById('st-class').value;
                     const mobile = document.getElementById('st-mobile').value;
+                    // MANUAL DATE LOGIC
+                    const dateInput = document.getElementById('st-date').value;
+                    const formattedDate = this.getFormattedDate(dateInput);
                     
                     const id = this.data.students.length > 0 ? Math.max(...this.data.students.map(s => s.id)) + 1 : 101;
 
@@ -941,7 +962,7 @@
                         id, name, class: cls, mobile,
                         photo: this.currentImage || `https://ui-avatars.com/api/?name=${name}&background=random&size=128`,
                         payments: [],
-                        admissionDate: this.getCurrentFormattedTime()
+                        admissionDate: formattedDate // Using Manual Date
                     };
                     this.data.students.push(student);
                     this.save();
@@ -986,13 +1007,12 @@
                 table.innerHTML = html;
             },
 
-            // UPDATED LOGIC FOR ADMIN SIDE (Realtime Calculation)
             calcRow: function(input) {
                 const row = input.closest('tr');
                 let total = 0;
                 let maxTotal = 0;
                 let valid = true;
-                let hasFailedSubject = false; // Flag to check if any subject fails
+                let hasFailedSubject = false; 
 
                 row.querySelectorAll('.mark-input').forEach(inp => {
                     const val = parseFloat(inp.value);
@@ -1005,9 +1025,8 @@
                             inp.classList.remove('is-invalid'); 
                             total += val;
                             
-                            // Check individual subject fail condition
                             if ((max === 100 && val < 33) || (max === 50 && val < 15)) {
-                                inp.classList.add('is-invalid'); // Visual cue for fail subject
+                                inp.classList.add('is-invalid');
                                 inp.style.borderColor = "#dc3545";
                                 hasFailedSubject = true;
                             } else {
@@ -1015,22 +1034,19 @@
                             }
                         }
                     } else {
-                        inp.style.borderColor = ""; // Reset if empty
+                        inp.style.borderColor = ""; 
                     }
                 });
 
                 row.querySelector('.total-cell').innerText = total;
                 
-                // Determine Grade
                 let grade = '-';
                 const cell = row.querySelector('.grade-cell');
                 
                 if (valid && maxTotal > 0) {
-                    // If any subject failed, Grade is F
                     if (hasFailedSubject) {
                         grade = 'F';
                     } else {
-                        // Calculate Percentage based on Total
                         const pct = (total / maxTotal) * 100;
                         const sortedGrading = [...this.data.grading].sort((a,b) => b.min - a.min);
                         const gradeObj = sortedGrading.find(g => pct >= g.min);
@@ -1050,11 +1066,8 @@
                 const dateInput = document.getElementById('res-date').value;
                 const cls = document.getElementById('res-class').value;
                 
-                const d = new Date(dateInput);
-                const formattedDate = d.toLocaleString('en-GB', {
-                    day: '2-digit', month: 'short', year: 'numeric',
-                    hour: '2-digit', minute: '2-digit'
-                });
+                // MANUAL DATE LOGIC
+                const formattedDate = this.getFormattedDate(dateInput);
 
                 const rows = document.querySelectorAll('#result-mark-table tbody tr');
                 const details = [];
@@ -1095,13 +1108,15 @@
                 const id = document.getElementById('pay-id').value;
                 const month = document.getElementById('pay-month').value;
                 const amount = document.getElementById('pay-amount').value;
+                // MANUAL DATE LOGIC
+                const dateInput = document.getElementById('pay-date').value;
+                const formattedDate = this.getFormattedDate(dateInput);
                 
                 if(!this.verifyStudentForPayment(id)) return;
 
                 const student = this.data.students.find(s => s.id == id);
-                const timestamp = this.getCurrentFormattedTime();
                 
-                const payment = { month, amount, date: timestamp };
+                const payment = { month, amount, date: formattedDate };
                 
                 student.payments.push(payment);
                 this.data.payments.push({
@@ -1111,6 +1126,8 @@
                 this.save();
                 e.target.reset();
                 document.getElementById('pay-stu-info').innerText = '';
+                // Reset date to today after save
+                document.getElementById('pay-date').value = new Date().toISOString().split('T')[0];
                 this.toast('পেমেন্ট গ্রহণ করা হয়েছে');
             },
 
@@ -1119,11 +1136,14 @@
                 e.preventDefault();
                 const title = document.getElementById('notice-title').value;
                 const desc = document.getElementById('notice-desc').value;
-                const timestamp = this.getCurrentFormattedTime();
+                // MANUAL DATE LOGIC
+                const dateInput = document.getElementById('notice-date').value;
+                const formattedDate = this.getFormattedDate(dateInput);
                 
-                this.data.notices.unshift({ title, desc, date: timestamp });
+                this.data.notices.unshift({ title, desc, date: formattedDate });
                 this.save();
                 e.target.reset();
+                document.getElementById('notice-date').value = new Date().toISOString().split('T')[0];
                 this.toast('নোটিশ পোস্ট হয়েছে');
             },
 
@@ -1133,19 +1153,17 @@
                 const cls = document.getElementById('rout-class').value;
                 const timeInput = document.getElementById('rout-time').value;
                 
-                const d = new Date(timeInput);
-                const formattedTime = d.toLocaleString('en-GB', {
-                    day: '2-digit', month: 'short', year: 'numeric',
-                    hour: '2-digit', minute: '2-digit'
-                });
+                // MANUAL DATE LOGIC
+                const formattedTime = this.getFormattedDate(timeInput);
 
                 this.data.routines.push({ title, class: cls, time: formattedTime });
                 this.save();
                 e.target.reset();
+                document.getElementById('rout-time').value = new Date().toISOString().slice(0,16);
                 this.toast('রুটিন যুক্ত হয়েছে');
             },
 
-            // --- Public Search (UPDATED LOGIC) ---
+            // --- Public Search ---
             searchResult: function() {
                 const id = document.getElementById('search-student-id').value;
                 const student = this.data.students.find(s => s.id == id);
@@ -1168,7 +1186,7 @@
                         let tableRows = '';
                         let totalObtained = 0;
                         let totalMax = 0;
-                        let hasAnyFail = false; // Flag for final grade
+                        let hasAnyFail = false; 
 
                         if(data) {
                             this.data.subjects.forEach(sub => {
@@ -1176,10 +1194,7 @@
                                 const full = sub.marks;
                                 totalObtained += got; totalMax += full;
                                 
-                                // Calculate Grade with the specific rule
                                 const grd = this.calculateGrade(got, full);
-                                
-                                // Check if this specific subject failed
                                 if (grd === 'F') hasAnyFail = true;
                                 
                                 tableRows += `<tr>
@@ -1190,10 +1205,8 @@
                                 </tr>`;
                             });
                             
-                            // Final GPA Calculation
                             let finalGrade = 'F';
                             if (!hasAnyFail) {
-                                // Only calculate percentage if no individual subject failed
                                 const totalPct = (totalObtained / totalMax) * 100;
                                 const sortedGrading = [...this.data.grading].sort((a,b)=>b.min-a.min);
                                 const finalGObj = sortedGrading.find(g=>totalPct>=g.min);
@@ -1443,7 +1456,7 @@
 
             hardReset: function() {
                 if(confirm("সতর্কতা! সব ডাটা মুছে যাবে। আপনি কি নিশ্চিত?")) {
-                    localStorage.removeItem('fiza_erp_v2_time_fixed');
+                    localStorage.removeItem('fiza_erp_v23_manual_date');
                     location.reload();
                 }
             },
